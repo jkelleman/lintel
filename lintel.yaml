@@ -1,0 +1,11 @@
+# lintel project config
+paths:
+  dataset: datasets/assistant_cases.jsonl
+  styleguide: config/styleguide.yaml
+  contracts: config/contracts.yaml
+  rubrics: rubrics
+
+gate:
+  min_pass_rate: 0.80            # share of cases with no blocker or major finding
+  max_blockers: 0                # any blocker holds the release
+  no_high_risk_regressions: true # a high-risk case that passed before must still pass

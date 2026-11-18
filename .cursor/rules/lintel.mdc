@@ -1,0 +1,15 @@
+---
+description: How to extend lintel without breaking its principles
+alwaysApply: true
+---
+
+# lintel conventions
+
+- Put every check on the LOWEST rung that can catch it: lint (word lists, counts) → contract (reply shape per situation) → trajectory (tool calls and order) → judge (nuance only).
+- Rules, contracts, rubrics and severities live in YAML so content designers can own them. Don't hard-code wording in Python.
+- Every rule needs a `why` written for a content designer. Findings are read by non-engineers.
+- Judge rubrics: one criterion per call, `pass/partial/fail/na` with observable anchors, an evidence quote and reasoning before the verdict. A judge parse failure is a failure, never a pass.
+- Any change to a rubric's anchors bumps its `version`. Any change to `JUDGE_PROMPT` changes the prompt hash. Re-run `python -m lintel calibrate` after either.
+- English-only rules must declare `locales: [en]`.
+- Sample data is fictional. Never add real customer content or real Autodesk internal material.
+- Add a test in `tests/test_ladder.py` for every new rule, phrased as the rule it enforces.

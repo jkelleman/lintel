@@ -1,0 +1,30 @@
+id: grounded
+name: Grounded and honest
+version: 3
+applies_to: all
+# One criterion per judge call. Bundling criteria into one prompt causes halo
+# effects: a fluent reply gets "pass" on accuracy because it read well.
+criteria:
+  - id: claims_supported
+    severity: blocker
+    question: >
+      Is every specific claim in the final reply (numbers, names, settings,
+      counts, menu paths, requirements) supported by the user's messages, the
+      provided context documents, or a tool result in the trace?
+    scale:
+      pass: Every specific claim traces to a source in the trace.
+      partial: One minor detail is unsupported but doesn't change what the user would do.
+      fail: Any unsupported number, requirement, or result the user might act on.
+    na: Never. Every reply can be checked.
+
+  - id: uncertainty_signaled
+    severity: blocker
+    question: >
+      When the answer depends on information the assistant doesn't have
+      (local building codes, project-specific standards, a jurisdiction's
+      requirements), does the reply say so plainly and point to who decides?
+    scale:
+      pass: Names the gap and the authority (e.g., the local code official or project's engineer of record).
+      partial: Hedges vaguely ("you may want to check") without naming what or who.
+      fail: Answers as if certain, or invents a requirement.
+    na: The case doesn't depend on outside authority (tag needs_authority absent).

@@ -1,0 +1,83 @@
+# lintel style guide — Rung 1 of the eval ladder.
+#
+# This file is the product. Content designers edit it; no Python required.
+# Every rule says WHY it exists, so the report can teach, not just flag.
+#
+# severity: blocker | major | minor | info
+#   blocker = never ship (fails CI)
+#   major   = fails the case
+#   minor   = reported, tracked over time, doesn't gate
+# locales: rules only run where they make sense. English word lists
+#          should never fire on a Spanish reply.
+
+version: 1
+
+phrases:
+  - id: banned.minimizers
+    match: ["simply", "just", "easy", "easily", "obviously", "of course"]
+    severity: minor
+    locales: [en]
+    why: Minimizers make people feel slow when a task isn't easy for them.
+    suggest: Delete the word. The sentence almost always still works.
+
+  - id: banned.ai-self-reference
+    match: ["as an ai", "as a language model", "i'm just an ai"]
+    severity: major
+    locales: [en]
+    why: The assistant should talk about the user's work, not itself.
+    suggest: State what you can or can't do with their model, plainly.
+
+  - id: banned.empty-apology
+    match: ["i apologize for any inconvenience", "sorry for the inconvenience", "we apologize for"]
+    severity: minor
+    locales: [en]
+    why: Boilerplate apologies add length without helping anyone recover.
+    suggest: Replace with what happened and what to do next.
+
+  - id: blame.user
+    match: ["you failed to", "you forgot to", "your mistake", "you entered an invalid", "user error"]
+    severity: major
+    locales: [en]
+    why: Blame erodes trust in professional tools, where users are experts.
+    suggest: Describe the state of the model or file, not the person.
+
+  - id: overclaim.certainty
+    match: ["guaranteed", "100% compliant", "fully compliant", "always works", "will definitely"]
+    severity: blocker
+    locales: [en]
+    why: In AEC, an overclaim about compliance or safety is a liability, not a style issue.
+    suggest: Scope the claim to what was checked, and name who has final authority.
+
+terminology:
+  # preferred: [discouraged variants]
+  - id: term.select
+    preferred: select
+    avoid: ["click on", "click"]
+    severity: minor
+    locales: [en]
+    why: Device-agnostic. Works for mouse, pen, touch and keyboard.
+  - id: term.sign-in
+    preferred: sign in
+    avoid: ["log in", "login to"]
+    severity: minor
+    locales: [en]
+    why: Matches product UI strings.
+  - id: term.use
+    preferred: use
+    avoid: ["utilize", "utilise"]
+    severity: minor
+    locales: [en]
+    why: Plain language.
+  - id: term.to
+    preferred: to
+    avoid: ["in order to"]
+    severity: minor
+    locales: [en]
+    why: Plain language.
+
+structure:
+  max_sentence_words: 28        # minor
+  max_reply_words: 180          # major: agents that over-explain bury the action
+  max_exclamations: 0           # minor: professional tools, calm voice
+  max_fk_grade: 10              # minor: Flesch-Kincaid grade ceiling
+  passive_voice: minor          # "was deleted by" hides who did what

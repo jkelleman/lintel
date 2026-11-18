@@ -1,0 +1,26 @@
+id: useful
+name: Useful in the moment
+version: 2
+applies_to: all
+criteria:
+  - id: answers_the_question
+    severity: major
+    question: >
+      Does the final reply address what the user actually asked in their last
+      message, rather than a nearby or easier question?
+    scale:
+      pass: Directly addresses the request, or asks the one question needed to address it.
+      partial: Addresses it, but leads with something else the user has to read past.
+      fail: Answers a different question or gives generic help.
+    na: Never.
+
+  - id: actionable_next_step
+    severity: major
+    question: >
+      Does the user leave the reply knowing exactly what to do next: a step to
+      take, a choice to make, or confirmation that nothing else is needed?
+    scale:
+      pass: One clear next action or a clear choice between options.
+      partial: Next steps exist but are buried, vague, or there are too many.
+      fail: No next action, or the user has to work out what to do.
+    na: Never.

@@ -1,0 +1,31 @@
+name: evals
+
+# Every change to prompts, rubrics, the style guide or agent traces runs the ladder.
+# The job fails when the release gate says HOLD, and the HTML report is attached
+# so a content designer can review findings without reading logs.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  ladder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev]"
+      - run: pytest -q
+      - name: Run the eval ladder (baseline → candidate)
+        run: python -m lintel run runs/candidate.jsonl --baseline runs/baseline.jsonl --out reports/ci
+        # The sample candidate is intentionally held by the gate (see README).
+        # Remove continue-on-error once you point this at your own agent.
+        continue-on-error: true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lintel-report
+          path: reports/ci/

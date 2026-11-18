@@ -1,0 +1,72 @@
+{"system": "baseline", "case_id": "c01", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c02", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c03", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c04", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c05", "criterion": "grounded.claims_supported", "label": "fail", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c06", "criterion": "grounded.claims_supported", "label": "fail", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c07", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c08", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c09", "criterion": "grounded.claims_supported", "label": "fail", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c10", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c11", "criterion": "grounded.claims_supported", "label": "fail", "rater": "jk", "note": "Says the roof was undone; the tool result shows it undid a door move. No numbers, so the heuristic can't see it."}
+{"system": "baseline", "case_id": "c12", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": "300 DPI is a recommendation, not a claim about the model. Heuristic can't tell advice from assertion."}
+{"system": "candidate", "case_id": "c01", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c02", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c03", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c04", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c05", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c06", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c07", "criterion": "grounded.claims_supported", "label": "fail", "rater": "jk", "note": "Says A101–A110 all exported; the tool says A107 and A109 failed. The numbers match, the claim doesn't."}
+{"system": "candidate", "case_id": "c08", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c09", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c10", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c11", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c12", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c01", "criterion": "useful.answers_the_question", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c02", "criterion": "useful.answers_the_question", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c03", "criterion": "useful.answers_the_question", "label": "partial", "rater": "jk", "note": "Acted on a guess instead of asking which doors."}
+{"system": "baseline", "case_id": "c04", "criterion": "useful.answers_the_question", "label": "partial", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c05", "criterion": "useful.answers_the_question", "label": "pass", "rater": "jk", "note": "Fully answers it; term overlap undercounts 'clash detection' vs 'clashes'."}
+{"system": "baseline", "case_id": "c06", "criterion": "useful.answers_the_question", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c07", "criterion": "useful.answers_the_question", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c08", "criterion": "useful.answers_the_question", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c09", "criterion": "useful.answers_the_question", "label": "partial", "rater": "jk", "note": "Acted on a guess about which requirement."}
+{"system": "baseline", "case_id": "c10", "criterion": "useful.answers_the_question", "label": "pass", "rater": "jk", "note": "Right content, wrong language. Overlap can't see across languages; locale is a separate contract."}
+{"system": "baseline", "case_id": "c11", "criterion": "useful.answers_the_question", "label": "fail", "rater": "jk", "note": "Undid the wrong change, so it didn't do what was asked."}
+{"system": "baseline", "case_id": "c12", "criterion": "useful.answers_the_question", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c01", "criterion": "useful.answers_the_question", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c02", "criterion": "useful.answers_the_question", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c03", "criterion": "useful.answers_the_question", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c04", "criterion": "useful.answers_the_question", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c05", "criterion": "useful.answers_the_question", "label": "pass", "rater": "jk", "note": "Same term-overlap undercount as baseline c05."}
+{"system": "candidate", "case_id": "c06", "criterion": "useful.answers_the_question", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c07", "criterion": "useful.answers_the_question", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c08", "criterion": "useful.answers_the_question", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c09", "criterion": "useful.answers_the_question", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c10", "criterion": "useful.answers_the_question", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c11", "criterion": "useful.answers_the_question", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c12", "criterion": "useful.answers_the_question", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c01", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c02", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c03", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c04", "criterion": "useful.actionable_next_step", "label": "partial", "rater": "jk", "note": "'Try again later' is a next step, but a wrong one: the file is over the size limit."}
+{"system": "baseline", "case_id": "c05", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c06", "criterion": "useful.actionable_next_step", "label": "fail", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c07", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c08", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c09", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c10", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c11", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}
+{"system": "baseline", "case_id": "c12", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c01", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c02", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c03", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c04", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c05", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c06", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c07", "criterion": "useful.actionable_next_step", "label": "fail", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c08", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c09", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c10", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c11", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}
+{"system": "candidate", "case_id": "c12", "criterion": "useful.actionable_next_step", "label": "pass", "rater": "jk", "note": ""}

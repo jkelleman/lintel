@@ -1,0 +1,39 @@
+# Rung 2: response contracts.
+#
+# A contract is a promise about the SHAPE of a reply in a given situation,
+# not its wording. "When a tool fails, the user always learns four things."
+# Contracts turn a content framework into something CI can enforce.
+#
+# Signals are deliberately simple keyword sets per locale. They catch absence
+# reliably (the common failure). Nuance is the judge's job, one rung up.
+
+recovery_envelope:
+  # Fires on the first assistant reply after any tool result with status error|partial.
+  # Adapted from the four-field error envelope in the Fabric Unified Error Framework.
+  severity: major
+  why: After a failure, users need the same four answers every time, in the same order of priority.
+  fields:
+    what_happened:
+      en: ["failed", "didn't", "couldn't", "wasn't able", "stopped", "error", "not complete", "of the", "only"]
+      es: ["falló", "no se pudo", "no pude", "error", "se detuvo"]
+    why:
+      en: ["because", "due to", "the file", "timed out", "limit", "not sure why", "don't know why", "the reason"]
+      es: ["porque", "debido", "límite", "no sé por qué"]
+    state_of_work:
+      en: ["unchanged", "wasn't changed", "not changed", "still", "safe", "kept", "no changes", "nothing was", "already exported", "were exported"]
+      es: ["sin cambios", "no se modificó", "sigue", "a salvo"]
+    next_step:
+      en: ["try", "you can", "want me to", "should i", "select", "retry", "check", "reduce", "open", "re-run"]
+      es: ["intenta", "puedes", "quieres que", "selecciona", "vuelve a"]
+
+locale_match:
+  severity: blocker
+  why: Replying in a different language than the user wrote in is a broken experience, not a style miss.
+
+source_attribution:
+  # Fires when the case says the answer must come from provided docs.
+  severity: major
+  why: Professionals act on what the assistant says. They need to see where it came from.
+  signals:
+    en: ["according to", "from the", "the help article", "source:", "rfi", "per the", "in the guide", "help topic"]
+    es: ["según", "fuente:", "el artículo de ayuda", "la guía"]

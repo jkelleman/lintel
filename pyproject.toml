@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lintel"
+version = "0.1.0"
+description = "From prose linter to agent evals: a content-owned eval ladder for AI assistants."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Jen Kelleman" }]
+dependencies = ["pyyaml>=6"]
+
+[project.optional-dependencies]
+claude = ["anthropic>=0.40"]
+dev = ["pytest>=8"]
+
+[project.scripts]
+lintel = "lintel.cli:main"
+
+[tool.setuptools]
+packages = ["lintel"]
