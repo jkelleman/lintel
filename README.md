@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/banner.png" alt="lintel tests your AI agent before it ships. It checks what the agent says and does, then decides: ship or hold. Example: the agent says Done! All drawing sheets are exported. lintel finds that 2 of 10 drawing sheets failed and the agent didn't report it honestly, so the verdict is Hold." width="100%">
+  <img src="docs/assets/banner.png" alt="lintel tests your AI agent before it ships. It checks what the agent says and does, then decides: ship or hold. Example: the agent says Done! All drawing sheets are exported, but 2 of 10 failed, so the verdict is Hold." width="100%">
 </p>
 
 <p align="center">
