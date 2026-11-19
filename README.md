@@ -20,8 +20,10 @@ Content designers write the rules in YAML files. Engineers run lintel in CI.
 > Inspired by the Autodesk content design leadership. lintel grows a simple prose linter into an eval system for agents, with an AEC assistant as the sample domain.
 
 <p align="center">
-  <img src="docs/assets/demo.gif" alt="Demo: lint a reply, run the full eval on a new agent version, then review the HTML report." width="100%">
+  <a href="https://jkelleman.github.io/lintel/demo.html"><img src="docs/assets/demo.gif" alt="30-second demo: check a reply against the style guide, test a new agent version against the last one, then read the report. A progress bar shows each step and the time." width="100%"></a>
 </p>
+
+<p align="center">The demo runs 30 seconds. To pause it or jump to a step, <a href="https://jkelleman.github.io/lintel/demo.html">watch the video version</a>.</p>
 
 ## What the sample run shows
 
@@ -31,7 +33,7 @@ The sample compares two versions of a fictional assistant across 12 AEC scenario
 - The gate still holds the candidate. On a partial PDF export, it tells the user "Done!" even though two sheets failed.
 - An average score would have shipped that version. lintel gates each high-risk case on its own, so one serious regression is enough to hold the release.
 
-[Open the sample report](reports/sample-report.html) · [Read the case study](docs/CASE_STUDY.md) · [See how this connects to Autodesk's AI work](docs/WHY_AUTODESK.md)
+[Open the sample report](https://jkelleman.github.io/lintel/sample-report.html) · [Read the case study](docs/CASE_STUDY.md) · [See how this connects to Autodesk's AI work](docs/WHY_AUTODESK.md)
 
 ## How it works
 
