@@ -25,6 +25,14 @@ Content designers write the rules in YAML files. Engineers run lintel in CI.
 
 <p align="center">The demo runs 30 seconds. To pause it or jump to a step, <a href="https://jkelleman.github.io/lintel/demo.html">watch the video version</a>.</p>
 
+## Explain it like I'm five
+
+Picture a new assistant at an architecture firm who answers clients' questions and does small jobs in their drawings. Before that assistant works alone, someone should check their work. Do they use the firm's words? Do they ask before throwing anything away? When a job half-fails, do they say so?
+
+lintel is that checker for AI assistants. It reads what the AI said and what it did, marks the problems the way an editor marks up a draft, and tells you whether the assistant is ready for real customers.
+
+**Want the full picture?** [Read the explainer](docs/EXPLAINED.md): what lintel is, why evals are becoming standard practice across AI labs, analysts and standards bodies (with sources), and how lintel could fit into Autodesk's AI workflow.
+
 ## What the sample run shows
 
 The sample compares two versions of a fictional assistant across 12 AEC scenarios.
@@ -46,6 +54,36 @@ lintel runs four levels of checks, cheapest first:
 
 Then **calibration** checks how closely the judge agrees with human reviewers.
 
+```mermaid
+flowchart LR
+    A["Agent conversations<br/>what it said and did"] --> L1
+    subgraph ladder ["lintel checks, cheapest first"]
+        direction LR
+        L1["1. Lint<br/>words and terms"] --> L2["2. Contracts<br/>right parts for the situation"]
+        L2 --> L3["3. Trajectory<br/>tools, order, honesty"]
+        L3 --> L4["4. Judge<br/>rubric scores"]
+    end
+    H["Human labels"] -.-> C["Calibration<br/>can we trust the judge?"]
+    C -.-> L4
+    B["Last version's results"] --> G
+    L4 --> G{"Release gate"}
+    G -->|all checks pass| S["Ship"]
+    G -->|a blocker or a<br/>high-risk regression| X["Hold"]
+    G --> R["Report<br/>findings, evidence, fixes"]
+
+    classDef step fill:#FFFFFF,stroke:#6B5BD2,stroke-width:2px,color:#2B2A4C
+    classDef input fill:#DFF3E8,stroke:#2F9E6A,color:#2B2A4C
+    classDef ship fill:#DDF2E6,stroke:#2F9E6A,stroke-width:2px,color:#1F7A50
+    classDef hold fill:#FBE1EA,stroke:#E0457B,stroke-width:2px,color:#B3255A
+    classDef gate fill:#6B5BD2,stroke:#6B5BD2,color:#FFFFFF
+    class L1,L2,L3,L4,C,R step
+    class A,H,B input
+    class S ship
+    class X hold
+    class G gate
+    style ladder fill:#F4FBF7,stroke:#2F9E6A,color:#2B2A4C
+```
+
 <details>
 <summary><b>See what each level checks, where its rules live and what it costs</b></summary>
 
@@ -58,6 +96,34 @@ Then **calibration** checks how closely the judge agrees with human reviewers.
 | **Calibration** | How closely the judge agrees with human reviewers | [`labels/human_labels.jsonl`](labels/human_labels.jsonl) | Reviewer time | Agreement is 88% but κ is 0.59, so this criterion can't gate a release yet |
 
 </details>
+
+## Where it fits in your workflow
+
+lintel runs in CI on every change to prompts, tools or models. It also connects the steps before and after: content designers write the standard, designers write the ideal conversations, reviewers read the report before release, and failures found in production become new test cases.
+
+```mermaid
+flowchart LR
+    W["Write the standard<br/>style guide, contracts, rubrics"] --> D["Design the conversation<br/>spec traces"]
+    D --> B["Build and change<br/>prompts, tools, models"]
+    B --> CI{{"lintel in CI<br/>on every change"}}
+    CI -->|hold| B
+    CI -->|ship| RV["Review before release<br/>report as evidence"]
+    RV --> P["Release"]
+    P --> M["Monitor<br/>weekly sampled conversations"]
+    M -->|new failure| T["Add it as a test case"]
+    T --> CI
+    M -.->|known limits| TC["Transparency card"]
+    PA["Partner agents"] --> CI
+
+    classDef step fill:#FFFFFF,stroke:#6B5BD2,stroke-width:2px,color:#2B2A4C
+    classDef lintel fill:#6B5BD2,stroke:#6B5BD2,color:#FFFFFF
+    classDef soft fill:#DFF3E8,stroke:#2F9E6A,color:#2B2A4C
+    class W,D,B,RV,P,M,T step
+    class CI lintel
+    class TC,PA soft
+```
+
+See [how this could work at Autodesk](docs/EXPLAINED.md#5-how-lintel-fits-autodesks-ai-workflow), stage by stage, with a 90-day pilot plan.
 
 ## Use cases
 
@@ -208,7 +274,7 @@ runs/        baseline.jsonl, candidate.jsonl        agent traces
 labels/      human_labels.jsonl                     human labels for calibration
 lintel/      lint, contracts, trajectory, judge, calibrate, runner, report, cli
 reports/     sample-report.html, .md, .json
-docs/        use cases, case study, rubric guide, content designer guide, Autodesk context
+docs/        explainer, use cases, case study, rubric guide, content designer guide, Autodesk context
 .cursor/     rules for extending lintel in Cursor
 ```
 
