@@ -116,3 +116,14 @@ def test_gate_holds_candidate_on_high_risk_regression(runs):
     base, cand = runs
     ok, reasons = gate(cand, CFG, base)
     assert not ok and any("c07" in r for r in reasons)
+
+
+
+def test_lint_lines_checks_each_string(tmp_path, capsys, monkeypatch):
+    from lintel.cli import main
+    monkeypatch.chdir(ROOT)
+    f = tmp_path / "strings.txt"
+    f.write_text("Select Export to save a PDF.\nYou entered an invalid file name.\n")
+    assert main(["lint", str(f), "--lines"]) == 1  # the blame string is a major finding
+    out = capsys.readouterr().out
+    assert "line 2" in out and "line 1" not in out

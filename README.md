@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/jkelleman/lintel/actions/workflows/evals.yml"><img src="https://github.com/jkelleman/lintel/actions/workflows/evals.yml/badge.svg" alt="evals workflow"></a>
-  <img src="https://img.shields.io/badge/tests-13%20passing-2F9E6A" alt="13 tests passing">
+  <img src="https://img.shields.io/badge/tests-14%20passing-2F9E6A" alt="14 tests passing">
   <img src="https://img.shields.io/badge/python-3.10%2B-6B5BD2" alt="Python 3.10+">
   <img src="https://img.shields.io/badge/rules-YAML-B7791F" alt="Rules in YAML">
   <img src="https://img.shields.io/badge/judge-offline%20%7C%20Claude-2B2A4C" alt="Judge: offline heuristic or Claude">
@@ -47,6 +47,29 @@ lintel runs four levels of checks. Each level costs more to run and can judge mo
 | **4. Judge** | Grounding, usefulness and voice, scored against a rubric | [`rubrics/`](rubrics) | One model call per criterion | The reply says 16 clashes; the tool returned 14 |
 | **Calibration** | How closely the judge agrees with human reviewers | [`labels/human_labels.jsonl`](labels/human_labels.jsonl) | Reviewer time | Agreement is 88% but κ is 0.59, so this criterion can't gate a release yet |
 
+## Use cases
+
+| Use case | Who it helps | What lintel checks | Status |
+|---|---|---|---|
+| [Gate a prompt change](docs/USE_CASES.md#1-gate-a-prompt-or-system-prompt-change) | PMs, engineers, content designers | Every case against the last version, with a ship or hold decision | Ready now |
+| [Compare models](docs/USE_CASES.md#2-compare-models-before-switching-or-routing) | Platform engineers, AI PMs | Voice, honesty and safety per model, broken down by tag | Ready now |
+| [Turn an incident into a test](docs/USE_CASES.md#3-turn-an-incident-into-a-permanent-test) | Incident owners | That a past failure never comes back | Ready now |
+| [Review a partner agent](docs/USE_CASES.md#4-review-a-partner-or-third-party-agent) | Platform and partner teams | Third-party agents against your own standards | Needs setup |
+| [Run your style guide as rules](docs/USE_CASES.md#5-turn-a-style-guide-into-rules-that-run) | Content designers | Banned phrases, preferred terms, length, reading level | Ready now |
+| [Audit UI strings and errors](docs/USE_CASES.md#6-audit-ui-strings-and-error-messages) | Content and localization teams | Each string in a file, line by line | Ready now |
+| [Check localized replies](docs/USE_CASES.md#7-check-localized-replies) | Localization teams | Reply language matches the user's language | Ready now |
+| [Onboard new writers](docs/USE_CASES.md#8-onboard-new-writers-to-the-teams-voice) | Content design leads | Instant feedback on drafts, with the reason for each rule | Ready now |
+| [Confirm and undo write actions](docs/USE_CASES.md#9-require-confirmation-and-undo-for-write-actions) | AI designers, safety reviewers | Agent asks before destructive tools and explains how to undo | Ready now |
+| [Ask before acting on ambiguity](docs/USE_CASES.md#10-make-agents-ask-before-acting-on-ambiguous-requests) | Conversation designers | First reply is a question when the request is unclear | Ready now |
+| [Hold error recovery to a standard](docs/USE_CASES.md#11-hold-error-recovery-to-a-standard) | Content designers, support | What happened, why, what's safe and what's next, after every failure | Ready now |
+| [Keep compliance answers in bounds](docs/USE_CASES.md#12-keep-compliance-and-safety-answers-in-bounds) | Product, legal, content | No overclaims; names who has final authority | Ready now |
+| [Check answers come from sources](docs/USE_CASES.md#13-check-that-answers-come-from-sources) | Help and docs assistant teams | Lookup tools used, sources named, numbers match the trace | Ready now |
+| [Build and calibrate an LLM judge](docs/USE_CASES.md#14-build-and-calibrate-an-llm-judge) | Eval leads, AI reviewers | Judge agreement with people, per criterion (Cohen's κ) | Needs setup |
+| [Write conversation specs as tests](docs/USE_CASES.md#15-write-conversation-specs-before-the-agent-exists) | Conversation designers, PMs | The built agent against the designed conversation | Ready now |
+| [Monitor production quality](docs/USE_CASES.md#16-monitor-production-quality-over-time) | AI product owners, quality teams | Weekly samples of real conversations, tracked over time | Needs setup |
+
+Each use case, with steps, examples from the sample data and what to watch for, is in [docs/USE_CASES.md](docs/USE_CASES.md).
+
 ## Features
 
 - **Rules for content designers.** The style guide, contracts, rubrics and severity levels are all YAML. Each rule has a `why` field, and the report prints it next to every finding.
@@ -64,6 +87,7 @@ pip install -e ".[dev]"
 pytest -q
 
 python -m lintel lint "Simply click on Export. It's guaranteed to work!"
+python -m lintel lint strings.txt --lines        # one UI string per line
 python -m lintel run runs/candidate.jsonl --baseline runs/baseline.jsonl
 python -m lintel calibrate runs/baseline.jsonl runs/candidate.jsonl
 ```
@@ -99,7 +123,7 @@ runs/        baseline.jsonl, candidate.jsonl        agent traces
 labels/      human_labels.jsonl                     human labels for calibration
 lintel/      lint, contracts, trajectory, judge, calibrate, runner, report, cli
 reports/     sample-report.html, .md, .json
-docs/        case study, rubric guide, content designer guide, Autodesk context
+docs/        use cases, case study, rubric guide, content designer guide, Autodesk context
 .cursor/     rules for extending lintel in Cursor
 ```
 

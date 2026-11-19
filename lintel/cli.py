@@ -28,8 +28,22 @@ def _print_findings(fs) -> None:
 
 def cmd_lint(a, cfg) -> int:
     text = Path(a.text).read_text(encoding="utf-8") if Path(a.text).is_file() else a.text
-    fs = lint_text(text, load_styleguide(cfg["paths"]["styleguide"]), a.locale)
-    _print_findings(fs)
+    guide = load_styleguide(cfg["paths"]["styleguide"])
+    if a.lines:
+        # One string per line, such as UI strings or error messages exported from a CMS.
+        fs = []
+        for n, line in enumerate(text.splitlines(), start=1):
+            if line.strip():
+                found = lint_text(line, guide, a.locale)
+                if found:
+                    print(f"line {n}: {line.strip()[:80]}")
+                    _print_findings(found)
+                fs += found
+        if not fs:
+            print("✓ no findings")
+    else:
+        fs = lint_text(text, guide, a.locale)
+        _print_findings(fs)
     return 1 if any(f.severity in ("blocker", "major") for f in fs) else 0
 
 
@@ -89,6 +103,7 @@ def main(argv=None) -> int:
     l = sub.add_parser("lint", help="Run the style guide on a string or file")
     l.add_argument("text")
     l.add_argument("--locale", default="en")
+    l.add_argument("--lines", action="store_true", help="check each line on its own, e.g. a file of UI strings")
 
     r = sub.add_parser("run", help="Run the full ladder on a trace file")
     r.add_argument("traces")
