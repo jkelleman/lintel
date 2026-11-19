@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>lintel: tests your AI agent before it ships</title>
+<meta name="description" content="lintel checks what an AI agent says and does, then decides whether a new version can ship.">
+<style>
+@font-face{font-family:Nunito;font-weight:400;src:url(fonts/nunito-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Nunito;font-weight:700;src:url(fonts/nunito-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:Nunito;font-weight:900;src:url(fonts/nunito-latin-900-normal.woff2) format("woff2")}
+:root{--mint:#DFF3E8;--ink:#2B2A4C;--soft:#5E5D82;--violet:#6B5BD2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--mint);color:var(--ink);font:18px/1.55 Nunito,ui-rounded,system-ui,sans-serif}
+main{max-width:980px;margin:0 auto;padding:40px 20px 72px}
+img{display:block;width:100%;height:auto;border-radius:24px}
+p{max-width:62ch;color:var(--soft)}
+.links{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;padding:0;list-style:none}
+.links a{display:inline-block;background:#fff;color:var(--ink);font-weight:700;text-decoration:none;border-radius:999px;padding:10px 20px;border:2px solid transparent}
+.links a:hover,.links a:focus-visible{border-color:var(--violet);color:var(--violet);outline:none}
+</style>
+</head>
+<body>
+<main>
+  <img src="assets/banner.png" alt="lintel tests your AI agent before it ships. It checks what the agent says and does, then decides: ship or hold.">
+  <p>lintel reads what an AI agent said and what it did, marks the problems the way an editor marks up a draft, and decides whether a new version is ready to release. Content designers write the rules in plain YAML. Engineers run it in CI.</p>
+  <ul class="links">
+    <li><a href="demo.html">Watch the 30-second demo</a></li>
+    <li><a href="sample-report.html">See a sample report</a></li>
+    <li><a href="https://github.com/jkelleman/lintel">Read the code on GitHub</a></li>
+  </ul>
+</main>
+</body>
+</html>
