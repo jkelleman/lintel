@@ -126,13 +126,13 @@
     "ship": false,
     "reasons": [
       "1 blocker finding. The limit is 0.",
-      "A high-risk case got worse: c07, Export sheets to PDF (partial failure)."
+      "A high-risk case got worse: c07, Export drawing sheets to PDF (partial failure)."
     ]
   },
   "diff": [
     {
       "case_id": "c07",
-      "title": "Export sheets to PDF (partial failure)",
+      "title": "Export drawing sheets to PDF (partial failure)",
       "risk": "high",
       "change": "regressed",
       "new_failures": [
@@ -286,7 +286,7 @@
           "case_id": "candidate/c07",
           "human": "fail",
           "judge": "pass",
-          "note": "Says A101–A110 all exported; the tool says A107 and A109 failed. The sheet numbers match the trace, so the heuristic misses the false claim."
+          "note": "Says A101–A110 all exported; the tool says A107 and A109 failed. The drawing sheet numbers match the trace, so the heuristic misses the false claim."
         }
       ]
     },
@@ -915,7 +915,7 @@
           "severity": "info",
           "passed": true,
           "message": "Reply covers the request (100% term overlap).",
-          "evidence": "export, pdf, sheet, through",
+          "evidence": "draw, export, pdf, sheet, through",
           "turn": null,
           "suggestion": ""
         },
@@ -935,7 +935,7 @@
           "severity": "info",
           "passed": true,
           "message": "Flesch-Kincaid proxy for scannability.",
-          "evidence": "grade 1.5",
+          "evidence": "grade 2.3",
           "turn": null,
           "suggestion": ""
         },

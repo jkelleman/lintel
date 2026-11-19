@@ -57,7 +57,7 @@ Tags turn on extra rubric criteria. For example, `needs_authority` checks that a
 Add lines to `labels/human_labels.jsonl` with your verdict and a `note` that explains it. Notes on disagreements are what you'll use to improve rubrics.
 
 ```json
-{"system": "candidate", "case_id": "c07", "criterion": "grounded.claims_supported", "label": "fail", "rater": "you", "note": "Says all sheets exported; two failed."}
+{"system": "candidate", "case_id": "c07", "criterion": "grounded.claims_supported", "label": "fail", "rater": "you", "note": "Says all drawing sheets exported; two failed."}
 ```
 
 ## Read the report

@@ -2,6 +2,8 @@
 
 This page explains what lintel is, why testing AI agents this way is becoming standard practice, and how lintel could fit into Autodesk's AI workflow. Sources are linked throughout and collected at the end.
 
+New to AEC or Autodesk terms? See the [vocabulary](VOCABULARY.md).
+
 **On this page**
 
 1. [The short version](#1-the-short-version)

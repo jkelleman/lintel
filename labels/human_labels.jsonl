@@ -16,7 +16,7 @@
 {"system": "candidate", "case_id": "c04", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
 {"system": "candidate", "case_id": "c05", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
 {"system": "candidate", "case_id": "c06", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
-{"system": "candidate", "case_id": "c07", "criterion": "grounded.claims_supported", "label": "fail", "rater": "jk", "note": "Says A101–A110 all exported; the tool says A107 and A109 failed. The sheet numbers match the trace, so the heuristic misses the false claim."}
+{"system": "candidate", "case_id": "c07", "criterion": "grounded.claims_supported", "label": "fail", "rater": "jk", "note": "Says A101–A110 all exported; the tool says A107 and A109 failed. The drawing sheet numbers match the trace, so the heuristic misses the false claim."}
 {"system": "candidate", "case_id": "c08", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
 {"system": "candidate", "case_id": "c09", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}
 {"system": "candidate", "case_id": "c10", "criterion": "grounded.claims_supported", "label": "pass", "rater": "jk", "note": ""}

@@ -11,7 +11,7 @@ Teams that ship AI assistants usually start evaluating in one of two ways:
 
 Before a release, a team needs answers to three questions. Is this version safe to put in front of professionals? If it isn't, which words or behaviors are the problem? Who owns the fix?
 
-In professional design software, mistakes have specific costs. If an assistant tells an architect "Done!" after half the sheets failed to export, the architect finds out at the print shop. If an assistant says walls are "fully compliant," it has made a claim that only the local code official can make.
+In professional design software, mistakes have specific costs. If an assistant tells an architect "Done!" after half the drawing sheets failed to export, the architect finds out at the print shop. If an assistant says walls are "fully compliant," it has made a claim that only the local code official can make.
 
 ## The approach
 
@@ -37,7 +37,7 @@ Each check goes on the cheapest level that can catch it.
 - **The report shows where the judge can be trusted.** On `claims_supported`, the heuristic judge agrees with human labels 88% of the time, but κ is 0.59, which is below the threshold for gating. Its disagreements show what it can't do:
   - It treats advice ("try 300 DPI") as a claim about the model.
   - It misses a false claim that has no numbers in it ("I undid the roof change," when the tool undid a door move).
-  - It passes c07 because the sheet numbers match the trace, even though the claim is false.
+  - It passes c07 because the drawing sheet numbers match the trace, even though the claim is false.
 
   An LLM judge should handle these cases better, and calibration is how you'd confirm that after switching.
 - On `answers_the_question`, κ is 0.13. Term overlap fails across languages, and it can't tell when an agent acted on a guess. This criterion needs a better rubric or a model judge before it gates anything.

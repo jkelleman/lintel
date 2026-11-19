@@ -40,7 +40,7 @@ def to_markdown(run: Run, verdict: tuple[bool, list[str]], diff: list[dict] | No
     s = summarize(run)
     ok, reasons = verdict
     lines = [f"# lintel report: {run.system}", "",
-             f"**Gate: {'✅ SHIP' if ok else '⛔ HOLD'}**" + ("" if ok else ": " + "; ".join(reasons)), "",
+             f"**Gate: {'✅ SHIP' if ok else '⛔ HOLD'}**" + ("" if ok else ": " + " ".join(reasons)), "",
              f"{s['passed']}/{s['cases']} cases pass ({s['pass_rate']:.0%}). Judge: `{run.meta['judge']}`, "
              f"prompt `{run.meta['judge_prompt']}`, rubrics {run.meta['rubrics']}.", "",
              "| Rung | Failures |", "|---|---|"]

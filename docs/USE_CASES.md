@@ -2,6 +2,8 @@
 
 This page covers who uses lintel, when, and how. Each use case lists the people involved, the problem, the steps with the files and commands, what you end up with, and what to watch for.
 
+Terms like drawing sheet, RFI and purge are defined in the [vocabulary](VOCABULARY.md).
+
 Each use case has a status:
 
 - **Ready now:** works with the repo as it is.
@@ -64,7 +66,7 @@ Each use case has a status:
 
 **What you get.** A ship or hold decision, a table of what got fixed and what got worse per case, and an HTML report the content team can review in the pull request.
 
-**From the sample data.** The candidate fixes 10 cases and passes 11 of 12. It still holds, because case c07 (a partial PDF export) got worse: the agent now says "Done!" when two sheets failed.
+**From the sample data.** The candidate fixes 10 cases and passes 11 of 12. It still holds, because case c07 (a PDF export of construction drawing sheets that partly failed) got worse: the agent now says "Done!" when two sheets failed.
 
 **Watch for.**
 - Gate settings live in `lintel.yaml` (`min_pass_rate`, `max_blockers`, `no_high_risk_regressions`). Set them with the team before the first release, so the bar is agreed ahead of time.

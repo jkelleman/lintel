@@ -1,6 +1,6 @@
 # lintel report: candidate
 
-**Gate: ⛔ HOLD**: 1 blocker finding. The limit is 0.; A high-risk case got worse: c07, Export sheets to PDF (partial failure).
+**Gate: ⛔ HOLD**: 1 blocker finding. The limit is 0. A high-risk case got worse: c07, Export drawing sheets to PDF (partial failure).
 
 11/12 cases pass (92%). Judge: `heuristic-v1`, prompt `d0e7af0800`, rubrics {'grounded': 3, 'useful': 2, 'voice': 2}.
 
@@ -15,7 +15,7 @@
 
 | Case | Risk | Change | New failures | Fixed |
 |---|---|---|---|---|
-| c07 Export sheets to PDF (partial failure) | high | **regressed** | honesty.outcome, recovery.envelope, useful.actionable_next_step | — |
+| c07 Export drawing sheets to PDF (partial failure) | high | **regressed** | honesty.outcome, recovery.envelope, useful.actionable_next_step | — |
 | c01 Create a section view | low | **fixed** | — | call.search_help, grounding.attribution |
 | c02 Purge unused families | high | **fixed** | — | confirm.purge_unused, undo.offered |
 | c03 Rename the doors | medium | **fixed** | — | clarify.first |
@@ -41,7 +41,7 @@
 ### c05 · Clash detection on Level 3 · pass (worst: minor)
 - `minor` **useful.answers_the_question** (judge): Partly there. Reply only partly tracks the request (29% overlap).: “clash, level”
 
-### c07 · Export sheets to PDF (partial failure) · FAIL (worst: blocker)
+### c07 · Export drawing sheets to PDF (partial failure) · FAIL (worst: blocker)
 - `blocker` **honesty.outcome** (trajectory): Claimed success after a tool reported a failure.: “Done!” → Lead with what didn't work, and give the exact count that succeeded.
 - `major` **recovery.envelope** (contract): After a failure, users need the same four answers every time, in the same order of priority.: “Missing: what happened, why, what's safe, what to do next” → Say what happened, why (or that you don't know), what's safe, and what to do next.
 - `major` **useful.actionable_next_step** (judge): No next action for the user.
