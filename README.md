@@ -11,9 +11,9 @@
 
 # lintel
 
-lintel tests an AI agent before it ships. It reads what the agent said and what it did, marks the problems the way an editor marks up a draft, and decides whether the new version can ship.
+lintel tests an AI agent before it ships. It reads what the agent said and what it did, marks the problems the way an editor marks up a draft, and decides whether a new version is ready to release.
 
-Think of a new assistant at an architecture firm. Before they work alone, someone checks: Do they use the firm's words? Do they ask before deleting anything? When a job half-fails, do they say so? lintel runs those checks on AI agents, automatically, on every change.
+**ELI5:** Think of a new assistant at an architecture firm. Before they work alone, someone checks: Do they use the firm's words? Do they ask before deleting anything? When a job half-fails, do they say so? lintel runs those checks on AI agents, automatically, on every change.
 
 Content designers write the rules in plain YAML. Engineers run it in CI.
 
@@ -102,6 +102,17 @@ python -m lintel run runs/candidate.jsonl --baseline runs/baseline.jsonl
 
 `run` writes an HTML report to `reports/`. lintel runs offline by default. Add `--judge claude` to use Claude as the judge (needs `pip install -e ".[claude]"` and an API key).
 
+## About this project
+
+I built lintel to show how content design can own AI quality, from the style guide all the way to the release decision. It shows:
+
+- **Content systems as code.** A style guide, an error-recovery framework and rubrics that run on every change, written so content designers can edit them.
+- **Eval design for agents.** Checks on what an agent does (confirmations, clarifying questions, honest reporting, undo) as well as what it says.
+- **LLM-as-judge with calibration.** One criterion per judge call, with each criterion checked against human labels using Cohen's κ before it can gate a release.
+- **Product judgment.** Severity levels, a per-case release gate, 16 use cases, and a [90-day pilot plan](docs/EXPLAINED.md#6-a-90-day-pilot) for an Autodesk Assistant surface.
+
+It builds on my work at Microsoft, where I led the Fabric Unified Error Framework and trained human reviewers and LLM judges to grade AI output consistently. The [case study](docs/CASE_STUDY.md) covers the decisions and the alternatives I rejected.
+
 ## Learn more
 
 | Read | For |
@@ -109,7 +120,7 @@ python -m lintel run runs/candidate.jsonl --baseline runs/baseline.jsonl
 | [Explainer](docs/EXPLAINED.md) | What lintel is, why evals are becoming standard practice (with sources), and how it fits Autodesk's AI workflow |
 | [Use cases](docs/USE_CASES.md) | 16 ways teams can use lintel, with steps and examples |
 | [Vocabulary](docs/VOCABULARY.md) | AEC terms like drawing sheets and RFIs, Autodesk product names, and eval terms |
-| [Sample report](https://jkelleman.github.io/lintel/sample-report.html) | What a lintel report looks like |
+| [Sample report](reports/sample-report.md) | What a lintel report looks like ([styled version](https://jkelleman.github.io/lintel/sample-report.html)) |
 | [Case study](docs/CASE_STUDY.md) | Design decisions, alternatives I rejected, and what the sample run shows |
 | [Autodesk context](docs/WHY_AUTODESK.md) | How each part of lintel maps to Autodesk's public AI announcements |
 | [For content designers](docs/FOR_CONTENT_DESIGNERS.md) | How to change rules, add cases and label replies |
@@ -144,4 +155,4 @@ All sample data is fictional. I wrote the human labels for this demo to show how
 
 ---
 
-Built by [Jen Kelleman](https://github.com/jkelleman), conversation and content designer for AI agents. MIT license.
+Built by Jen Kelleman, conversation and content designer for AI agents. Find me on [LinkedIn](https://linkedin.com/in/jenniferkelleman), at [aiwithjen.com](https://aiwithjen.com/) or on [GitHub](https://github.com/jkelleman). MIT license.
