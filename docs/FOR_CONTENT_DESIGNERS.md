@@ -1,6 +1,6 @@
-# For content designers: you own this, no Python required
+# Guide for content designers
 
-"Technical" is a spectrum. Everything you need to change in lintel is a YAML file, which is just a structured list. Open it in Cursor or any editor.
+You can change everything you need in lintel by editing YAML files. YAML is a structured list format, and you can edit it in Cursor or any text editor.
 
 ## Change a rule
 
@@ -11,11 +11,11 @@
     match: ["it might possibly", "could potentially"]
     severity: minor
     locales: [en]
-    why: Stacked hedges sound evasive. Pick one, or state the limit plainly.
-    suggest: Say what you know and what you don't.
+    why: Stacked hedges sound evasive.
+    suggest: Say what you know, then state the limit plainly.
 ```
 
-**Prefer a term:**
+**Set a preferred term:**
 
 ```yaml
   - id: term.model
@@ -23,38 +23,38 @@
     avoid: ["drawing file", "the BIM"]
     severity: minor
     locales: [en]
-    why: Matches product UI.
+    why: Matches the product UI.
 ```
 
-**Change how strict something is.** Edit `severity:`.
+**Change how strict a rule is** by editing `severity:`.
 - `blocker` holds the release.
 - `major` fails the case.
-- `minor` is reported and tracked, but doesn't fail anything.
+- `minor` is reported and tracked, and has no effect on pass or fail.
 
-Then run:
+To see which rules a reply triggers, run:
 
 ```bash
-python -m lintel lint "Paste any reply here to see what fires."
+python -m lintel lint "Paste any reply here."
 ```
 
 ## Add a test case
 
-Add a line to `datasets/assistant_cases.jsonl`. The `expect` field is where your content framework lives:
+Add a line to `datasets/assistant_cases.jsonl`. The `expect` field is where your content framework goes:
 
-| Expectation | Means |
+| Expectation | Meaning |
 |---|---|
-| `"clarify": true` | The request is ambiguous. The first reply must be a question, not an action. |
-| `"confirm_before": ["tool"]` | This tool is destructive. The agent must ask and get a yes first. |
-| `"offer_undo": true` | After a destructive action, say how to reverse it. |
-| `"cite_source": true` | The answer must name where it came from. |
-| `"must_call": ["tool"]` | The answer must be grounded in this tool, not the model's memory. |
-| `"must_not_call": ["tool"]` | This tool is out of bounds here. |
+| `"clarify": true` | The request is ambiguous, so the agent's first reply must be a question. |
+| `"confirm_before": ["tool"]` | The tool is destructive. The agent must ask first and get a yes. |
+| `"offer_undo": true` | After a destructive action, the reply must explain how to reverse it. |
+| `"cite_source": true` | The reply must name where the answer came from. |
+| `"must_call": ["tool"]` | The answer must come from this tool's result. |
+| `"must_not_call": ["tool"]` | The agent may not use this tool in this case. |
 
-Tags like `needs_authority` switch on rubric criteria (for example, "names who decides" for code-compliance questions).
+Tags turn on extra rubric criteria. For example, `needs_authority` checks that a code-compliance answer names who makes the final call.
 
-## Label for calibration
+## Label replies for calibration
 
-Add lines to `labels/human_labels.jsonl` with your verdict and, most importantly, a `note` explaining it. Notes on disagreements are how rubrics get better.
+Add lines to `labels/human_labels.jsonl` with your verdict and a `note` that explains it. Notes on disagreements are what you'll use to improve rubrics.
 
 ```json
 {"system": "candidate", "case_id": "c07", "criterion": "grounded.claims_supported", "label": "fail", "rater": "you", "note": "Says all sheets exported; two failed."}
@@ -62,4 +62,4 @@ Add lines to `labels/human_labels.jsonl` with your verdict and, most importantly
 
 ## Read the report
 
-Open `reports/sample-report.html`. Every finding has the rule's `why`, the exact text that triggered it, and a suggested fix, all written in your language, because you wrote it.
+Open `reports/sample-report.html`. Each finding shows the rule's `why`, the exact text that triggered it and a suggested fix, all in the words you wrote in the YAML.

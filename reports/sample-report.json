@@ -280,13 +280,13 @@
           "case_id": "baseline/c12",
           "human": "pass",
           "judge": "fail",
-          "note": "300 DPI is a recommendation, not a claim about the model. Heuristic can't tell advice from assertion."
+          "note": "300 DPI is advice for the user. It makes no claim about the model. The heuristic treats every number as a claim."
         },
         {
           "case_id": "candidate/c07",
           "human": "fail",
           "judge": "pass",
-          "note": "Says A101–A110 all exported; the tool says A107 and A109 failed. The numbers match, the claim doesn't."
+          "note": "Says A101–A110 all exported; the tool says A107 and A109 failed. The sheet numbers match the trace, so the heuristic misses the false claim."
         }
       ]
     },
@@ -301,7 +301,7 @@
           "case_id": "baseline/c04",
           "human": "partial",
           "judge": "fail",
-          "note": "'Try again later' is a next step, but a wrong one: the file is over the size limit."
+          "note": "'Try again later' won't work: the file is over the size limit, so retrying fails the same way."
         }
       ]
     },
@@ -316,7 +316,7 @@
           "case_id": "baseline/c03",
           "human": "partial",
           "judge": "pass",
-          "note": "Acted on a guess instead of asking which doors."
+          "note": "Renamed all 212 doors on a guess. It should have asked which doors."
         },
         {
           "case_id": "baseline/c05",
@@ -334,7 +334,7 @@
           "case_id": "baseline/c10",
           "human": "pass",
           "judge": "fail",
-          "note": "Right content, wrong language. Overlap can't see across languages; locale is a separate contract."
+          "note": "Correct steps in English for a Spanish question. Term overlap fails across languages. The locale contract covers the language issue."
         },
         {
           "case_id": "baseline/c11",
@@ -897,7 +897,7 @@
           "message": "Claimed success after a tool reported a failure.",
           "evidence": "Done!",
           "turn": 3,
-          "suggestion": "Lead with what didn't work. Never round a partial result up."
+          "suggestion": "Lead with what didn't work, and give the exact count that succeeded."
         },
         {
           "layer": "judge",

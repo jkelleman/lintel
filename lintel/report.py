@@ -1,6 +1,6 @@
 """Reports written for the people who own the words: content designers and PMs.
 
-Every finding reads as a sentence with evidence and a fix, not a stack trace.
+Every finding reads as a sentence with evidence and a suggested fix.
 """
 from __future__ import annotations
 
@@ -40,7 +40,7 @@ def to_markdown(run: Run, verdict: tuple[bool, list[str]], diff: list[dict] | No
     s = summarize(run)
     ok, reasons = verdict
     lines = [f"# lintel report · `{run.system}`", "",
-             f"**Gate: {'✅ SHIP' if ok else '⛔ HOLD'}**" + ("" if ok else " — " + "; ".join(reasons)), "",
+             f"**Gate: {'✅ SHIP' if ok else '⛔ HOLD'}**" + ("" if ok else ": " + "; ".join(reasons)), "",
              f"{s['passed']}/{s['cases']} cases pass ({s['pass_rate']:.0%}). Judge: `{run.meta['judge']}`, "
              f"prompt `{run.meta['judge_prompt']}`, rubrics {run.meta['rubrics']}.", "",
              "| Rung | Failures |", "|---|---|"]
@@ -52,13 +52,13 @@ def to_markdown(run: Run, verdict: tuple[bool, list[str]], diff: list[dict] | No
     if calib:
         lines += ["", "## Judge calibration (vs human labels)", "", "| Criterion | n | Agreement | κ | Status |", "|---|---|---|---|---|"]
         lines += [f"| {c['criterion']} | {c['n']} | {c['agreement']:.0%} | {c['kappa']:.2f} | {c['status']} |" for c in calib]
-    lines += ["", "## Failing cases", ""]
+    lines += ["", "## Cases with findings", ""]
     for r in run.results:
         if not r.failures:
             continue
-        lines.append(f"### {r.case.id} · {r.case.title} — {'pass' if r.passed else 'FAIL'} (worst: {r.worst})")
+        lines.append(f"### {r.case.id} · {r.case.title} · {'pass' if r.passed else 'FAIL'} (worst: {r.worst})")
         for f in sorted(r.failures, key=lambda f: -SEVERITY_ORDER[f.severity]):
-            ev = f" — “{f.evidence}”" if f.evidence else ""
+            ev = f": “{f.evidence}”" if f.evidence else ""
             fix = f" → {f.suggestion}" if f.suggestion else ""
             lines.append(f"- `{f.severity}` **{f.check}** ({f.layer}): {f.message}{ev}{fix}")
         lines.append("")

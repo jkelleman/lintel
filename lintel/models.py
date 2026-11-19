@@ -6,7 +6,7 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 
-# Severity is a product decision, not a technical one. Content design owns it.
+# Severity is a product decision. Content design owns it.
 SEVERITY_ORDER = {"blocker": 3, "major": 2, "minor": 1, "info": 0}
 
 # The four rungs of the eval ladder, cheapest and most deterministic first.
@@ -19,7 +19,7 @@ class Finding:
     check: str            # rule or criterion id, e.g. "banned.simply"
     severity: str         # blocker | major | minor | info
     passed: bool
-    message: str          # written for a content designer, not an engineer
+    message: str          # written for a content designer
     evidence: str = ""    # the exact text that triggered it
     turn: int | None = None
     suggestion: str = ""
@@ -80,7 +80,7 @@ class CaseResult:
 
     @property
     def passed(self) -> bool:
-        # A case fails on any blocker or major. Minors are reported, not gated.
+        # A case fails on any blocker or major. Minors are reported and don't gate.
         return self.worst in ("pass", "minor", "info")
 
 

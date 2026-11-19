@@ -1,14 +1,14 @@
-# lintel style guide — Rung 1 of the eval ladder.
+# lintel style guide: level 1 of the eval ladder.
 #
 # This file is the product. Content designers edit it; no Python required.
-# Every rule says WHY it exists, so the report can teach, not just flag.
+# Every rule says why it exists. The report shows that reason next to each finding.
 #
 # severity: blocker | major | minor | info
-#   blocker = never ship (fails CI)
+#   blocker = holds the release (fails CI)
 #   major   = fails the case
 #   minor   = reported, tracked over time, doesn't gate
 # locales: rules only run where they make sense. English word lists
-#          should never fire on a Spanish reply.
+#          only run on English replies.
 
 version: 1
 
@@ -17,14 +17,14 @@ phrases:
     match: ["simply", "just", "easy", "easily", "obviously", "of course"]
     severity: minor
     locales: [en]
-    why: Minimizers make people feel slow when a task isn't easy for them.
+    why: Minimizers make people feel slow when a task is hard for them.
     suggest: Delete the word. The sentence almost always still works.
 
   - id: banned.ai-self-reference
     match: ["as an ai", "as a language model", "i'm just an ai"]
     severity: major
     locales: [en]
-    why: The assistant should talk about the user's work, not itself.
+    why: Replies should be about the user's work. Self-reference adds nothing.
     suggest: State what you can or can't do with their model, plainly.
 
   - id: banned.empty-apology
@@ -39,13 +39,13 @@ phrases:
     severity: major
     locales: [en]
     why: Blame erodes trust in professional tools, where users are experts.
-    suggest: Describe the state of the model or file, not the person.
+    suggest: Describe the state of the model or file.
 
   - id: overclaim.certainty
     match: ["guaranteed", "100% compliant", "fully compliant", "always works", "will definitely"]
     severity: blocker
     locales: [en]
-    why: In AEC, an overclaim about compliance or safety is a liability, not a style issue.
+    why: In AEC, an overclaim about compliance or safety creates legal and safety risk.
     suggest: Scope the claim to what was checked, and name who has final authority.
 
 terminology:

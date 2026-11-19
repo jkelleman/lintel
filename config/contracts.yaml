@@ -1,4 +1,4 @@
-# Rung 2: response contracts.
+# Level 2: response contracts.
 #
 # A contract is a promise about the SHAPE of a reply in a given situation,
 # not its wording. "When a tool fails, the user always learns four things."
@@ -28,7 +28,7 @@ recovery_envelope:
 
 locale_match:
   severity: blocker
-  why: Replying in a different language than the user wrote in is a broken experience, not a style miss.
+  why: A reply in a different language than the user wrote in is a broken experience.
 
 source_attribution:
   # Fires when the case says the answer must come from provided docs.

@@ -1,7 +1,7 @@
 """Rung 1: the prose linter. Where this project started.
 
 Fast, free, deterministic. Runs on every assistant message, every commit.
-If a rule can be written as a word list or a count, it belongs here, not in an LLM judge.
+If a rule can be written as a word list or a count, it belongs here.
 """
 from __future__ import annotations
 
@@ -90,6 +90,6 @@ def lint_text(text: str, guide: dict[str, Any], locale: str = "en", turn: int | 
         m = _PASSIVE.search(text)
         if m:
             out.append(Finding("lint", "structure.passive-voice", s["passive_voice"], False,
-                               "Passive voice can hide who did what — the agent or the user.",
+                               "Passive voice can hide who did what: the agent or the user.",
                                evidence=m.group(0), turn=turn))
     return out

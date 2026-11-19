@@ -1,106 +1,114 @@
+<p align="center">
+  <img src="docs/assets/banner.svg" alt="lintel checks every AI agent reply, from word choice to actions, and decides whether a release ships or holds." width="100%">
+</p>
+
+<p align="center">
+  <a href="https://github.com/jkelleman/lintel/actions/workflows/evals.yml"><img src="https://github.com/jkelleman/lintel/actions/workflows/evals.yml/badge.svg" alt="evals workflow"></a>
+  <img src="https://img.shields.io/badge/tests-13%20passing-1f7a4d" alt="13 tests passing">
+  <img src="https://img.shields.io/badge/python-3.10%2B-0b5c78" alt="Python 3.10+">
+  <img src="https://img.shields.io/badge/rules-YAML-a15c07" alt="Rules in YAML">
+  <img src="https://img.shields.io/badge/judge-offline%20%7C%20Claude-5d6763" alt="Judge: offline heuristic or Claude">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-1d2321" alt="MIT license"></a>
+</p>
+
 # lintel
 
-**From prose linter to agent evals: a content-owned eval ladder for AI assistants in design software.**
+lintel is an eval system for AI assistants in professional design software. It checks each agent reply in four steps, from word choice up to the actions the agent took, and then decides whether a new agent version can ship.
 
-A lintel is the beam over an opening that carries the load. This one carries a content style guide all the way up to release gates for agents.
+Content designers write the rules in YAML files. Engineers run lintel in CI.
 
 > Inspired by the Autodesk content design leadership. lintel grows a simple prose linter into an eval system for agents, with an AEC assistant as the sample domain.
 
-```
-python -m lintel run runs/candidate.jsonl --baseline runs/baseline.jsonl
+<p align="center">
+  <img src="docs/assets/demo.gif" alt="Demo: lint a reply, run the full eval on a new agent version, then review the HTML report." width="100%">
+</p>
 
-lintel · candidate · judge=heuristic-v1
-  11/12 cases pass (92%)
-  regressed c07 Export sheets to PDF (partial failure)
-  fixed     c02 Purge unused families   … and 9 more
-  judge κ  0.59  not trusted grounded.claims_supported
-  judge κ  0.81  trusted     useful.actionable_next_step
-  judge κ  0.13  not trusted useful.answers_the_question
+## What the sample run shows
 
-  GATE: HOLD
-   - 1 blocker finding(s); limit is 0
-   - high-risk regression on c07 (Export sheets to PDF (partial failure))
-```
+The sample compares two versions of a fictional assistant across 12 AEC scenarios.
 
-**The headline:** the new agent version improves from 17% to 92% of cases passing, and it still doesn't ship, because it now tells an architect that a half-failed sheet export succeeded. An average would have shipped it. A content-owned gate didn't.
+- The baseline passes 2 of 12 cases. The candidate passes 11 of 12.
+- The gate still holds the candidate. On a partial PDF export, it tells the user "Done!" even though two sheets failed.
+- An average score would have shipped that version. lintel gates each high-risk case on its own, so one serious regression is enough to hold the release.
 
-[Sample report (HTML)](reports/sample-report.html) · [Case study](docs/CASE_STUDY.md) · [Why this matters at Autodesk](docs/WHY_AUTODESK.md)
+[Open the sample report](reports/sample-report.html) · [Read the case study](docs/CASE_STUDY.md) · [See how this connects to Autodesk's AI work](docs/WHY_AUTODESK.md)
 
----
+## How it works
 
-## The ladder
+lintel runs four levels of checks. Each level costs more to run and can judge more nuance, so every check goes on the cheapest level that can catch it.
 
-Each rung costs more and judges more nuance. Push every check as far *down* the ladder as it will go.
-
-| Rung | What it checks | Owned in | Cost | Example catch |
+| Level | What it checks | Where the rules live | Cost | Example finding |
 |---|---|---|---|---|
-| **1 · Lint** | Words, terms, length, reading level, voice | [`config/styleguide.yaml`](config/styleguide.yaml) | Free, instant, deterministic | "fully compliant" → **blocker** (compliance overclaim) |
-| **2 · Contracts** | The *shape* a reply must take in a situation | [`config/contracts.yaml`](config/contracts.yaml) | Free | After a tool error: what happened · why · what's safe · what to do next |
-| **3 · Trajectory** | What the agent *did*: tool calls, order, honesty | [`lintel/trajectory.py`](lintel/trajectory.py) + case expectations | Free | Ran `purge_unused` without asking; said "Done!" after a partial failure |
-| **4 · Judge** | Nuance: grounding, usefulness, voice | [`rubrics/*.yaml`](rubrics) | Model calls | "16 clashes" when the tool returned 14 |
-| **Meta** | Is the judge itself trustworthy? | [`labels/human_labels.jsonl`](labels/human_labels.jsonl) | Human time | κ 0.59 → don't gate on this criterion yet |
+| **1. Lint** | Word choice, terminology, length, reading level, voice | [`config/styleguide.yaml`](config/styleguide.yaml) | Free and instant | "fully compliant" is a blocker: only the code official can say that |
+| **2. Contracts** | The shape a reply must take in a given situation | [`config/contracts.yaml`](config/contracts.yaml) | Free | After a tool error, the reply must say what happened, why, what's safe, and what to do next |
+| **3. Trajectory** | What the agent did: which tools it called, in what order, and what it reported | [`lintel/trajectory.py`](lintel/trajectory.py) and each case's `expect` block | Free | The agent ran `purge_unused` before the user said yes |
+| **4. Judge** | Grounding, usefulness and voice, scored against a rubric | [`rubrics/`](rubrics) | One model call per criterion | The reply says 16 clashes; the tool returned 14 |
+| **Calibration** | How closely the judge agrees with human reviewers | [`labels/human_labels.jsonl`](labels/human_labels.jsonl) | Reviewer time | Agreement is 88% but κ is 0.59, so this criterion can't gate a release yet |
 
-Rungs 1–3 catch most of the failures that matter in professional tools, and they cost nothing to run. The model judge is reserved for what only a model can see, and it isn't trusted until it agrees with people.
+## Features
 
-## What makes this more than a linter
-
-- **Content design owns the rules.** The style guide, contracts, rubrics and severities are YAML with a `why` on every rule. The report quotes that `why` back, so findings teach instead of nag. See [For content designers](docs/FOR_CONTENT_DESIGNERS.md).
-- **Severity is a product decision.** `blocker` holds the release, `major` fails the case, `minor` is tracked. A compliance overclaim in AEC is a liability, not a style nit, so it's a blocker on rung 1.
-- **It evaluates actions, not just words.** Confirmation before destructive tools, clarifying before acting on ambiguity, honest reporting of partial results, offering undo. A beautifully written reply can still be a failure.
-- **It evaluates the evaluator.** Per-criterion Cohen's κ against human labels, with every disagreement logged with a reason. The sample shows why raw agreement lies: 88% agreement, κ 0.59.
-- **Averages don't gate releases.** High-risk cases are gated one by one against the baseline. A regression on a high-risk case holds the release no matter how good the average looks.
-- **Runs are reproducible.** Every report records the judge, a hash of the judge prompt and each rubric version. If you change the prompt, scores from before and after aren't comparable, and the report shows it.
-- **Locale-aware.** English word lists never fire on a Spanish reply. Reply language must match the user's locale (blocker).
+- **Rules for content designers.** The style guide, contracts, rubrics and severity levels are all YAML. Each rule has a `why` field, and the report prints it next to every finding.
+- **Severity levels.** `blocker` holds the release, `major` fails the case, and `minor` gets reported and tracked. A compliance overclaim is a blocker at level 1, because in AEC it creates legal and safety risk.
+- **Checks on agent actions.** lintel reads the full trace, including tool calls and tool results. It checks that the agent asks before destructive actions, asks a question when a request is ambiguous, reports partial results accurately, and explains how to undo a change.
+- **Judge calibration.** For each rubric criterion, lintel compares the judge's verdicts with human labels and reports Cohen's κ, which corrects for agreement by chance. Every disagreement is logged with the reviewer's note.
+- **Per-case release gate.** High-risk cases are compared one by one against the baseline. A regression on any of them holds the release.
+- **Reproducible scores.** Each report records the judge name, a hash of the judge prompt and every rubric version. If any of those change, the report makes it clear that scores aren't comparable across runs.
+- **Locale support.** English word lists only run on English replies. The reply language must match the user's language, and a mismatch is a blocker.
 
 ## Quick start
 
 ```bash
 pip install -e ".[dev]"
-pytest -q                                   # 13 tests, each one states a rule
+pytest -q
 
 python -m lintel lint "Simply click on Export. It's guaranteed to work!"
-python -m lintel run runs/candidate.jsonl --baseline runs/baseline.jsonl   # writes reports/
+python -m lintel run runs/candidate.jsonl --baseline runs/baseline.jsonl
 python -m lintel calibrate runs/baseline.jsonl runs/candidate.jsonl
 ```
 
-Everything runs offline with a deterministic heuristic judge, so it works in CI with no API key. To use an LLM judge:
+`run` writes HTML, Markdown and JSON reports to `reports/`.
+
+By default, lintel uses a deterministic heuristic judge, so it runs offline and in CI with no API key. To use Claude as the judge:
 
 ```bash
-pip install -e ".[claude]" && export ANTHROPIC_API_KEY=...
+pip install -e ".[claude]"
+export ANTHROPIC_API_KEY=...
 python -m lintel run runs/candidate.jsonl --baseline runs/baseline.jsonl --judge claude
-python -m lintel calibrate runs/*.jsonl --judge claude   # does it beat the heuristic's κ?
+python -m lintel calibrate runs/*.jsonl --judge claude
 ```
 
-The heuristic is also the floor. If an LLM judge can't beat the heuristic's agreement with humans on a criterion, the rubric is the problem, not the model.
+Use the heuristic's κ as the baseline. If an LLM judge scores lower κ on a criterion, rewrite that criterion's rubric.
 
-## The sample domain
+## Sample data
 
-Twelve cases for a fictional assistant inside BIM authoring software ([`datasets/assistant_cases.jsonl`](datasets/assistant_cases.jsonl)): section views, purging families, ambiguous renames, failed uploads, clash detection, corridor fire ratings, partial PDF exports, RFIs, stair compliance, a Spanish-language how-to, undo, and slow renders. Each case has a `baseline` and a `candidate` trace with tool calls and tool results ([`runs/`](runs)).
+[`datasets/assistant_cases.jsonl`](datasets/assistant_cases.jsonl) has 12 cases for a fictional assistant inside BIM authoring software: section views, purging families, an ambiguous rename, a failed upload, clash detection, corridor fire ratings, a partial PDF export, an RFI summary, stair compliance, a Spanish how-to question, undo, and a slow render.
 
-All sample data is fictional and illustrative. Human labels were written for this demo to show the calibration loop, not taken from a real rater pool.
+Each case has a `baseline` and a `candidate` trace in [`runs/`](runs), with tool calls and tool results.
+
+All sample data is fictional. I wrote the human labels for this demo to show how calibration works.
 
 ## Repo map
 
 ```
-config/      styleguide.yaml · contracts.yaml       ← content-owned rules
-rubrics/     grounded · useful · voice              ← one criterion per judge call
-datasets/    assistant_cases.jsonl                  ← cases + expectations
-runs/        baseline.jsonl · candidate.jsonl       ← agent traces (any agent, any framework)
-labels/      human_labels.jsonl                     ← for judge calibration
-lintel/      lint · contracts · trajectory · judge · calibrate · runner · report · cli
-reports/     sample-report.{html,md,json}
-docs/        case study · writing rubrics · for content designers · why Autodesk
+config/      styleguide.yaml, contracts.yaml        rules owned by content design
+rubrics/     grounded, useful, voice                one criterion per judge call
+datasets/    assistant_cases.jsonl                  cases and expected behavior
+runs/        baseline.jsonl, candidate.jsonl        agent traces
+labels/      human_labels.jsonl                     human labels for calibration
+lintel/      lint, contracts, trajectory, judge, calibrate, runner, report, cli
+reports/     sample-report.html, .md, .json
+docs/        case study, rubric guide, content designer guide, Autodesk context
 .cursor/     rules for extending lintel in Cursor
 ```
 
 ## Roadmap
 
-- **MCP trace adapter**: convert MCP client logs (for example, from an agent built on Autodesk Platform Services MCP servers) into lintel traces, so any MCP agent can be put through the ladder.
-- **Write-tool policy pack**: a contract set for agents that modify models, where every write needs confirmation, a scoped summary and an undo path.
-- **Pairwise judging** with position swapping, for A/B prompt comparisons.
-- **Disagreement queue**: route judge/human disagreements to a weekly rubric review, and track κ over time.
-- **Vale export**: emit rung 1 as a Vale style, so the same rules run in docs pipelines.
+- **MCP trace adapter.** Convert MCP client logs into lintel traces. Agents built on Autodesk Platform Services MCP servers could then run through the same checks.
+- **Write-tool policy pack.** A contract set for agents that change models: every write needs a confirmation, a summary of the scope, and an undo path.
+- **Pairwise judging** with swapped positions, for A/B prompt tests.
+- **Disagreement queue.** Send judge and human disagreements to a weekly rubric review and track κ over time.
+- **Vale export.** Write level 1 as a Vale style, so the same rules also run in docs pipelines.
 
 ---
 
-Built by [Jen Kelleman](https://github.com/jkelleman), a conversation and content designer for AI agents. MIT licensed.
+Built by [Jen Kelleman](https://github.com/jkelleman), conversation and content designer for AI agents. MIT license.

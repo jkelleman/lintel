@@ -82,7 +82,7 @@ def _content_words(text: str) -> set[str]:
 
 
 def _claims_only(reply: str) -> str:
-    """Drop questions and examples: "Level 2, for example?" is an offer, not a claim."""
+    """Drop questions and examples. "Level 2, for example?" is an offer and makes no claim."""
     return " ".join(s for s in sentences(reply) if not s.rstrip().endswith("?") and "for example" not in s.lower())
 
 
@@ -228,7 +228,7 @@ class ClaudeJudge:
             return v, data.get("evidence", ""), data.get("reasoning", "")
         except Exception:
             self.parse_failures += 1
-            # A judge that can't produce a verdict is a failed measurement, never a pass.
+            # A judge that can't produce a verdict is a failed measurement, so it counts as a fail.
             return "fail", raw[:120], "JUDGE_PARSE_FAILURE: treat this case as unmeasured."
 
 

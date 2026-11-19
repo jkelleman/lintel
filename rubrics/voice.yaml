@@ -7,7 +7,7 @@ criteria:
     severity: minor
     question: >
       Is the reply written in plain language a busy architect or engineer can
-      scan mid-task, using the product's terms rather than internal jargon?
+      scan mid-task, using the product's terms and no internal jargon?
     scale:
       pass: Scannable, short sentences, domain terms used correctly.
       partial: Readable but dense, or one unexplained internal term.
@@ -20,7 +20,7 @@ criteria:
       Does the reply treat the user as an expert in their field: no blame,
       no condescension, no over-explaining things a professional knows?
     scale:
-      pass: Peer-to-peer tone. Explains the product, not the profession.
+      pass: Peer-to-peer tone. Explains the product and assumes the user knows their profession.
       partial: One condescending phrase or unnecessary explanation.
       fail: Blames the user or lectures them on their own discipline.
     na: Never.

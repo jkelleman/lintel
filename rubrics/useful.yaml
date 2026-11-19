@@ -7,7 +7,7 @@ criteria:
     severity: major
     question: >
       Does the final reply address what the user actually asked in their last
-      message, rather than a nearby or easier question?
+      message? Watch for replies that answer a nearby or easier question.
     scale:
       pass: Directly addresses the request, or asks the one question needed to address it.
       partial: Addresses it, but leads with something else the user has to read past.

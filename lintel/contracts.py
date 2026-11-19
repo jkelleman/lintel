@@ -38,7 +38,7 @@ def check_contracts(case: Case, trace: Trace, cfg: dict[str, Any]) -> list[Findi
             nxt = _reply_after(trace, i)
             if not nxt:
                 out.append(Finding("contract", "recovery.no-reply", "blocker", False,
-                                   "A tool failed and the assistant never told the user.", turn=i))
+                                   "A tool failed and the assistant didn't tell the user.", turn=i))
                 break
             j, reply = nxt
             missing = [name for name, sig in env["fields"].items() if not _has_any(reply, sig.get(loc, sig["en"]))]

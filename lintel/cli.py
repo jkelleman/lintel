@@ -22,7 +22,7 @@ def _print_findings(fs) -> None:
     if not fs:
         print("✓ no findings")
     for f in fs:
-        ev = f' — "{f.evidence}"' if f.evidence else ""
+        ev = f': "{f.evidence}"' if f.evidence else ""
         print(f"  {f.severity:<7} {f.check}{ev}\n          {f.message}" + (f"\n          fix: {f.suggestion}" if f.suggestion else ""))
 
 
@@ -48,7 +48,7 @@ def cmd_run(a, cfg) -> int:
     ok, reasons = verdict
     print(f"\nlintel · {run.system} · judge={run.meta['judge']}")
     print(f"  {s['passed']}/{s['cases']} cases pass ({s['pass_rate']:.0%})")
-    print("  failures by rung: " + "  ".join(f"{k}={v}" for k, v in s["failures_by_layer"].items()))
+    print("  failures by level: " + "  ".join(f"{k}={v}" for k, v in s["failures_by_layer"].items()))
     if diff:
         for d in diff:
             if d["change"] in ("regressed", "fixed"):
