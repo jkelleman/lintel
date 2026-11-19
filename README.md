@@ -1,19 +1,19 @@
 <p align="center">
-  <img src="docs/assets/banner.svg" alt="lintel checks every AI agent reply, from word choice to actions, and decides whether a release ships or holds." width="100%">
+  <img src="docs/assets/banner.png" alt="lintel, a friendly second reader for your AI agent. An agent says Done! All sheets are exported. lintel circles the claim and notes: 2 sheets failed. Say that first. Hold." width="100%">
 </p>
 
 <p align="center">
   <a href="https://github.com/jkelleman/lintel/actions/workflows/evals.yml"><img src="https://github.com/jkelleman/lintel/actions/workflows/evals.yml/badge.svg" alt="evals workflow"></a>
-  <img src="https://img.shields.io/badge/tests-13%20passing-1f7a4d" alt="13 tests passing">
-  <img src="https://img.shields.io/badge/python-3.10%2B-0b5c78" alt="Python 3.10+">
-  <img src="https://img.shields.io/badge/rules-YAML-a15c07" alt="Rules in YAML">
-  <img src="https://img.shields.io/badge/judge-offline%20%7C%20Claude-5d6763" alt="Judge: offline heuristic or Claude">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-1d2321" alt="MIT license"></a>
+  <img src="https://img.shields.io/badge/tests-13%20passing-2F9E6A" alt="13 tests passing">
+  <img src="https://img.shields.io/badge/python-3.10%2B-6B5BD2" alt="Python 3.10+">
+  <img src="https://img.shields.io/badge/rules-YAML-B7791F" alt="Rules in YAML">
+  <img src="https://img.shields.io/badge/judge-offline%20%7C%20Claude-2B2A4C" alt="Judge: offline heuristic or Claude">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-55547A" alt="MIT license"></a>
 </p>
 
 # lintel
 
-lintel is an eval system for AI assistants in professional design software. It checks each agent reply in four steps, from word choice up to the actions the agent took, and then decides whether a new agent version can ship.
+lintel is a friendly second reader for AI agents in professional design software. It checks each agent reply in four steps, from word choice up to the actions the agent took, and then tells you whether a new agent version is ready to ship.
 
 Content designers write the rules in YAML files. Engineers run lintel in CI.
 

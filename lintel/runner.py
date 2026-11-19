@@ -96,14 +96,14 @@ def gate(run: Run, cfg: dict[str, Any], baseline: Run | None = None) -> tuple[bo
     s = summarize(run)
     reasons = []
     if s["pass_rate"] < g["min_pass_rate"]:
-        reasons.append(f'pass rate {s["pass_rate"]:.0%} is below {g["min_pass_rate"]:.0%}')
+        reasons.append(f'{s["pass_rate"]:.0%} of cases pass, and the bar is {g["min_pass_rate"]:.0%}.')
     blockers = s["failures_by_severity"].get("blocker", 0)
     if blockers > g["max_blockers"]:
-        reasons.append(f"{blockers} blocker finding(s); limit is {g['max_blockers']}")
+        reasons.append(f"{blockers} blocker finding{'' if blockers == 1 else 's'}. The limit is {g['max_blockers']}.")
     if baseline and g.get("no_high_risk_regressions"):
         base = baseline.by_id()
         for r in run.results:
             b = base.get(r.case.id)
             if r.case.risk == "high" and b and b.passed and not r.passed:
-                reasons.append(f"high-risk regression on {r.case.id} ({r.case.title})")
+                reasons.append(f"A high-risk case got worse: {r.case.id}, {r.case.title}.")
     return not reasons, reasons

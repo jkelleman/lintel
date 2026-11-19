@@ -46,7 +46,7 @@ def cmd_run(a, cfg) -> int:
 
     s = summarize(run)
     ok, reasons = verdict
-    print(f"\nlintel · {run.system} · judge={run.meta['judge']}")
+    print(f"\nChecking {run.system} with the {run.meta['judge']} judge")
     print(f"  {s['passed']}/{s['cases']} cases pass ({s['pass_rate']:.0%})")
     print("  failures by level: " + "  ".join(f"{k}={v}" for k, v in s["failures_by_layer"].items()))
     if diff:

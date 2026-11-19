@@ -37,7 +37,7 @@ def verdict_to_finding(rubric: dict, crit: dict, verdict: str, evidence: str, re
         return None
     sev = crit["severity"] if verdict == "fail" else ("minor" if verdict == "partial" else "info")
     return Finding("judge", f'{rubric["id"]}.{crit["id"]}', sev, verdict == "pass",
-                   f"[{verdict}] {reason}", evidence=evidence)
+                   (reason if verdict != "partial" else f"Partly there. {reason}"), evidence=evidence)
 
 
 class Judge(Protocol):

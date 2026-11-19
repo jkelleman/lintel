@@ -39,7 +39,7 @@ def to_markdown(run: Run, verdict: tuple[bool, list[str]], diff: list[dict] | No
                 calib: list[dict] | None = None) -> str:
     s = summarize(run)
     ok, reasons = verdict
-    lines = [f"# lintel report · `{run.system}`", "",
+    lines = [f"# lintel report: {run.system}", "",
              f"**Gate: {'✅ SHIP' if ok else '⛔ HOLD'}**" + ("" if ok else ": " + "; ".join(reasons)), "",
              f"{s['passed']}/{s['cases']} cases pass ({s['pass_rate']:.0%}). Judge: `{run.meta['judge']}`, "
              f"prompt `{run.meta['judge_prompt']}`, rubrics {run.meta['rubrics']}.", "",
@@ -68,26 +68,51 @@ def to_markdown(run: Run, verdict: tuple[bool, list[str]], diff: list[dict] | No
 # ---------------------------------------------------------------- html
 
 CSS = """
-:root{--ink:#1d2321;--muted:#5d6763;--line:#dfe3e1;--bg:#f7f6f2;--card:#fff;--ok:#1f7a4d;--warn:#a15c07;--bad:#b42318;--accent:#0b5c78}
-*{box-sizing:border-box}body{margin:0;font:15px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}
-main{max-width:1040px;margin:0 auto;padding:40px 24px 80px}h1{font-size:28px;margin:0 0 4px;letter-spacing:-.01em}h2{font-size:18px;margin:40px 0 12px}
-.sub{color:var(--muted);margin:0 0 24px}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px}
-.gate{display:flex;gap:16px;align-items:center;padding:18px 20px;border-radius:10px;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--ok)}
-.gate.hold{border-left-color:var(--bad)}.gate b{font-size:20px}.gate ul{margin:4px 0 0;padding-left:18px;color:var(--muted)}
-.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}.tile{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
-.tile .n{font-size:26px;font-weight:650;font-variant-numeric:tabular-nums}.tile .l{color:var(--muted);font-size:13px}
-.ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.rung{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px}
-.rung .n{font-size:22px;font-weight:650}.rung small{display:block;color:var(--muted)}
-table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
-th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);background:#fbfbf9}
-.pill{display:inline-block;padding:1px 8px;border-radius:99px;font-size:12px;font-weight:600;white-space:nowrap}
-.blocker,.regressed,.nt{background:#fde7e5;color:var(--bad)}.major,.sf{background:#fdf0dc;color:var(--warn)}.minor{background:#eef1f0;color:var(--muted)}
-.fixed,.pass,.tr{background:#e3f3ea;color:var(--ok)}.sp{background:#eef1f0;color:var(--muted)}.us{background:#e5f0f5;color:var(--accent)}
-details{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:8px 0;padding:0}summary{cursor:pointer;padding:12px 16px;display:flex;gap:10px;align-items:center}
-details[open] summary{border-bottom:1px solid var(--line)}.case-body{padding:12px 16px}.f{padding:8px 0;border-bottom:1px dashed var(--line)}.f:last-child{border:0}
-.ev{color:var(--muted)}.fix{color:var(--accent)}.turn{white-space:pre-wrap;background:#fbfbf9;border:1px solid var(--line);border-radius:6px;padding:8px 10px;margin:6px 0;font-size:13.5px}
-.role{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
-@media(max-width:700px){.tiles,.ladder{grid-template-columns:repeat(2,1fr)}}
+:root{--mint:#DFF3E8;--mint2:#EEF8F2;--ink:#2B2A4C;--soft:#5E5D82;--line:#D5E6DC;--violet:#6B5BD2;
+--hi:#FFE36E;--pen:#E0457B;--leaf:#2F9E6A;--amber:#B7791F;--paper:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--mint);color:var(--ink);font:17px/1.55 Nunito,ui-rounded,"SF Pro Rounded",system-ui,sans-serif}
+main{max-width:920px;margin:0 auto;padding:48px 24px 96px}
+h1{font-size:40px;font-weight:900;letter-spacing:-.8px;line-height:1.1;margin:0 0 8px}
+h2{font-size:24px;font-weight:800;margin:56px 0 6px;letter-spacing:-.2px}
+.lede{color:var(--soft);margin:0 0 28px;max-width:62ch}
+.hand{font-family:Kalam,"Bradley Hand","Segoe Print",cursive;font-weight:700;color:var(--pen)}
+code{font:600 .82em ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--mint2);border-radius:6px;padding:1px 6px;color:var(--ink)}
+.verdict{background:var(--paper);border-radius:28px 28px 28px 8px;padding:22px 28px;max-width:640px}
+.verdict .hand{font-size:34px;line-height:1.1;display:block;margin-bottom:6px}
+.verdict.ship .hand{color:var(--leaf)}
+.verdict ul{margin:6px 0 0;padding-left:20px}
+.summary{font-size:22px;font-weight:700;margin:28px 0 0;max-width:62ch}
+.summary b{background:linear-gradient(transparent 55%,var(--hi) 55%);font-weight:800}
+.ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:14px}
+.ladder strong{display:block;font-size:30px;font-weight:900;line-height:1.1}
+.ladder span{color:var(--soft);font-size:15px}
+table{width:100%;border-collapse:collapse;background:var(--paper);border-radius:20px;overflow:hidden;margin-top:14px}
+th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top;font-size:15.5px}
+th{font-weight:800;color:var(--soft);font-size:14.5px}
+tr:last-child td{border-bottom:0}
+td:first-child{min-width:190px}
+.pill{display:inline-block;padding:2px 12px;border-radius:99px;font-size:13.5px;font-weight:800;white-space:nowrap}
+.blocker,.regressed,.nt{background:#FBE1EA;color:#B3255A}.major,.sf{background:#FCEFD3;color:#8A5A12}
+.minor,.sp{background:var(--mint2);color:var(--soft)}.fixed,.pass,.tr{background:#DDF2E6;color:#1F7A50}.us{background:#E9E5FA;color:#4E3FB0}
+details.case{background:var(--paper);border-radius:22px;margin:12px 0}
+details.case>summary{cursor:pointer;padding:16px 22px;display:flex;gap:12px;align-items:center;font-weight:800;list-style:none}
+details.case>summary::-webkit-details-marker{display:none}
+details.case>summary:focus-visible{outline:3px solid var(--violet);outline-offset:2px;border-radius:22px}
+.case-body{padding:0 22px 20px}
+.tags{color:var(--soft);font-weight:600;font-size:14.5px;margin-left:auto}
+.f{padding:12px 0;border-top:1px solid var(--line)}
+.f p{margin:4px 0 0}.ev{color:var(--soft)}
+.f .hand{font-size:21px;display:block;margin-top:4px;line-height:1.25}
+.chat{background:var(--mint2);border-radius:18px;padding:16px;margin-top:14px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:78%;padding:10px 16px;border-radius:20px;font-size:15.5px;white-space:pre-wrap}
+.msg.user{align-self:flex-end;background:var(--violet);color:#fff;border-bottom-right-radius:6px}
+.msg.assistant{align-self:flex-start;background:var(--paper);border-bottom-left-radius:6px}
+.msg.tool{align-self:center;max-width:92%;background:transparent;color:var(--soft);font-size:13.5px;padding:2px 8px;text-align:center}
+.calls{display:block;color:var(--soft);font-size:13.5px;margin-top:4px}
+.foot{color:var(--soft);font-size:14.5px;margin-top:56px}
+@media(max-width:640px){h1{font-size:32px}.ladder{grid-template-columns:repeat(2,1fr)}.msg{max-width:92%}.tags{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
 """
 
 
@@ -99,71 +124,80 @@ def _cls(change: str) -> str:
     return {"regressed": "regressed", "fixed": "fixed", "still failing": "sf", "still passing": "sp"}[change]
 
 
+def _plural(n: int, word: str) -> str:
+    return f"{n} {word}" + ("" if n == 1 else "s")
+
+
 def to_html(run: Run, verdict: tuple[bool, list[str]], diff: list[dict] | None = None,
             calib: list[dict] | None = None, base: Run | None = None) -> str:
     s = summarize(run)
     ok, reasons = verdict
-    out = [f"<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>"
-           f"<title>lintel · {_e(run.system)}</title><style>{CSS}</style></head><body><main>",
-           f"<h1>lintel report · {_e(run.system)}</h1>",
-           f"<p class='sub'>Judge <span class='mono'>{_e(run.meta['judge'])}</span> · prompt "
-           f"<span class='mono'>{_e(run.meta['judge_prompt'])}</span> · rubrics "
-           f"<span class='mono'>{_e(json.dumps(run.meta['rubrics']))}</span></p>",
-           f"<div class='gate {'' if ok else 'hold'}'><b>{'Ship' if ok else 'Hold'}</b><div>"
-           + ("All release gates pass." if ok else "<ul>" + "".join(f"<li>{_e(r)}</li>" for r in reasons) + "</ul>")
-           + "</div></div>"]
     sev = s["failures_by_severity"]
     regress = sum(d["change"] == "regressed" for d in diff or [])
-    tiles = [(f"{s['pass_rate']:.0%}", f"{s['passed']} of {s['cases']} cases pass"),
-             (sev.get("blocker", 0), "blocker findings"), (sev.get("major", 0), "major findings"),
-             (regress if diff else "—", "regressions vs baseline" if diff else "no baseline compared")]
-    out.append("<div class='tiles'>" + "".join(f"<div class='tile'><div class='n'>{_e(n)}</div><div class='l'>{_e(l)}</div></div>"
-                                              for n, l in tiles) + "</div>")
-    blurbs = {"lint": "word lists, length, reading level", "contract": "reply shape per situation",
-              "trajectory": "what the agent did", "judge": "rubric, one criterion per call"}
-    out.append("<h2>Where failures were caught</h2><div class='ladder'>" + "".join(
-        f"<div class='rung'><small>{LAYER_NAMES[layer]}</small><div class='n'>{s['failures_by_layer'][layer]}</div><small>{blurbs[layer]}</small></div>"
-        for layer in LAYERS) + "</div>")
+    rubrics = ", ".join(f"{k} v{v}" for k, v in run.meta["rubrics"].items())
+    out = [f"<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>"
+           f"<title>lintel report: {_e(run.system)}</title><style>{CSS}</style></head><body><main>",
+           f"<h1>How did the {_e(run.system)} do?</h1>",
+           f"<p class='lede'>Scored with the {_e(run.meta['judge'])} judge, prompt version {_e(run.meta['judge_prompt'])}, "
+           f"and rubrics {_e(rubrics)}.</p>",
+           f"<div class='verdict {'ship' if ok else 'hold'}'><span class='hand'>{'Ready to ship.' if ok else 'Hold for now.'}</span>"
+           + ("Every release check passed." if ok else "<ul>" + "".join(f"<li>{_e(r)}</li>" for r in reasons) + "</ul>")
+           + "</div>"]
+    parts = [f"<b>{s['passed']} of {s['cases']}</b> cases pass", f"{_plural(sev.get('blocker', 0), 'blocker')}",
+             f"{_plural(sev.get('major', 0), 'major finding')}"]
+    if diff:
+        parts.append(f"<b>{_plural(regress, 'regression')}</b> since the baseline")
+    out.append("<p class='summary'>" + ", ".join(parts[:-1]) + ", and " + parts[-1] + ".</p>")
+
+    blurbs = {"lint": "word choice and reading level", "contract": "reply shape for the situation",
+              "trajectory": "what the agent did", "judge": "rubric scores"}
+    out.append("<h2>Where problems were caught</h2><p class='lede'>Cheaper checks run first. Each count is the number of findings at that level.</p><div class='ladder'>"
+               + "".join(f"<div><strong>{s['failures_by_layer'][layer]}</strong><span>{LAYER_NAMES[layer].split(' · ')[1]}: {blurbs[layer]}</span></div>"
+                         for layer in LAYERS) + "</div>")
 
     if diff:
-        out.append(f"<h2>Baseline → candidate</h2><table><tr><th>Case</th><th>Risk</th><th>Change</th><th>New failures</th><th>Fixed</th></tr>")
+        out.append("<h2>What changed since the baseline</h2><table><tr><th>Case</th><th>Risk</th><th>Change</th><th>New problems</th><th>Fixed</th></tr>")
         for d in diff:
+            nf = " ".join(f"<code>{_e(x)}</code>" for x in d["new_failures"]) or "None"
+            fx = " ".join(f"<code>{_e(x)}</code>" for x in d["fixed_failures"]) or "None"
             out.append(f"<tr><td><b>{_e(d['case_id'])}</b> {_e(d['title'])}</td><td>{_e(d['risk'])}</td>"
-                       f"<td><span class='pill {_cls(d['change'])}'>{_e(d['change'])}</span></td>"
-                       f"<td class='mono'>{_e(', '.join(d['new_failures']) or '—')}</td><td class='mono'>{_e(', '.join(d['fixed_failures']) or '—')}</td></tr>")
+                       f"<td><span class='pill {_cls(d['change'])}'>{_e(d['change'])}</span></td><td>{nf}</td><td>{fx}</td></tr>")
         out.append("</table>")
 
     if calib:
-        out.append("<h2>Can we trust the judge?</h2><p class='sub'>Judge verdicts vs. human labels, per criterion. "
-                   "Cohen's κ corrects for agreement by chance. Below 0.60, fix the rubric before gating on it.</p>"
-                   "<table><tr><th>Criterion</th><th>n</th><th>Agreement</th><th>κ</th><th>Status</th><th>Disagreements</th></tr>")
+        out.append("<h2>Can we trust the judge?</h2><p class='lede'>The judge's verdicts compared with human labels. "
+                   "Cohen's κ corrects for agreement by chance. Below 0.60, fix the rubric before using that criterion to gate a release.</p>"
+                   "<table><tr><th>Criterion</th><th>Agreement</th><th>κ</th><th>Status</th><th>Where they disagreed</th></tr>")
         cmap = {"trusted": "tr", "usable": "us", "not trusted": "nt"}
         for c in calib:
-            dis = "<br>".join(f"<b>{_e(d['case_id'])}</b>: human <i>{_e(d['human'])}</i>, judge <i>{_e(d['judge'])}</i>"
-                              + (f" <span class='ev'>· {_e(d['note'])}</span>" if d["note"] else "") for d in c["disagreements"]) or "—"
-            out.append(f"<tr><td class='mono'>{_e(c['criterion'])}</td><td>{c['n']}</td><td>{c['agreement']:.0%}</td>"
+            dis = "<br><br>".join(f"<b>{_e(d['case_id'])}</b>: people said {_e(d['human'])}, the judge said {_e(d['judge'])}."
+                                  + (f" <span class='ev'>{_e(d['note'])}</span>" if d["note"] else "") for d in c["disagreements"]) or "None"
+            out.append(f"<tr><td><code>{_e(c['criterion'])}</code><br><span class='ev'>{c['n']} labels</span></td><td>{c['agreement']:.0%}</td>"
                        f"<td><b>{c['kappa']:.2f}</b></td><td><span class='pill {cmap[c['status']]}'>{_e(c['status'])}</span></td><td>{dis}</td></tr>")
         out.append("</table>")
 
-    out.append("<h2>Cases</h2>")
+    out.append("<h2>Every case</h2><p class='lede'>Cases with problems are open. Each one shows the conversation the finding came from.</p>")
     for r in sorted(run.results, key=lambda r: (r.passed, r.case.id)):
         badge = f"<span class='pill {'pass' if r.passed else r.worst}'>{'pass' if r.passed else r.worst}</span>"
-        out.append(f"<details{'' if r.passed else ' open'}><summary>{badge}<b>{_e(r.case.id)}</b> {_e(r.case.title)}"
-                   f"<span class='ev'>· {', '.join(_e(t) for t in r.case.tags)}</span></summary><div class='case-body'>")
+        out.append(f"<details class='case'{'' if r.passed else ' open'}><summary>{badge}<span>{_e(r.case.id)} {_e(r.case.title)}</span>"
+                   f"<span class='tags'>{_e(', '.join(r.case.tags))}</span></summary><div class='case-body'>")
+        said = " ".join(t.get("content") or "" for t in r.trace.turns if t["role"] == "assistant")
         for f in sorted(r.failures, key=lambda f: -SEVERITY_ORDER[f.severity]):
-            out.append(f"<div class='f'><span class='pill {f.severity}'>{f.severity}</span> <span class='mono'>{_e(f.check)}</span> "
-                       f"<span class='ev'>({LAYER_NAMES[f.layer]})</span><br>{_e(f.message)}"
-                       + (f"<br><span class='ev'>Evidence: “{_e(f.evidence)}”</span>" if f.evidence else "")
-                       + (f"<br><span class='fix'>Fix: {_e(f.suggestion)}</span>" if f.suggestion else "") + "</div>")
+            out.append(f"<div class='f'><span class='pill {f.severity}'>{f.severity}</span> <code>{_e(f.check)}</code>"
+                       f"<p>{_e(f.message)}</p>"
+                       + ((f"<p class='ev'>It said: “{_e(f.evidence)}”</p>" if f.evidence in said else f"<p class='ev'>{_e(f.evidence)}</p>") if f.evidence else "")
+                       + (f"<span class='hand'>{_e(f.suggestion)}</span>" if f.suggestion else "") + "</div>")
         if not r.failures:
-            out.append("<div class='ev'>No findings.</div>")
-        out.append("<details style='margin-top:10px'><summary>Transcript</summary><div class='case-body'>")
+            out.append("<p class='ev'>No problems found.</p>")
+        out.append("<div class='chat'>")
         for t in r.trace.turns:
-            body = t.get("content") if t["role"] != "tool" else f"{t.get('name')} · {t.get('status', 'ok')} · {json.dumps(t.get('content'))}"
-            calls = "".join(f"\n→ calls {c['name']}({json.dumps(c.get('args', {}))})" for c in t.get("tool_calls", []) or [])
-            out.append(f"<div class='role'>{_e(t['role'])}</div><div class='turn'>{_e(body)}{_e(calls)}</div>")
-        out.append("</div></details></div></details>")
-    out.append("<p class='sub' style='margin-top:40px'>Generated by lintel. Sample data is fictional.</p></main></body></html>")
+            calls = "".join(f"<span class='calls'>Called {_e(c['name'])}</span>" for c in t.get("tool_calls", []) or [])
+            if t["role"] == "tool":
+                out.append(f"<div class='msg tool'>{_e(t.get('name'))} returned {_e(t.get('status', 'ok'))}: {_e(json.dumps(t.get('content')))}</div>")
+            elif t.get("content") or calls:
+                out.append(f"<div class='msg {t['role']}'>{_e(t.get('content') or '')}{calls}</div>")
+        out.append("</div></div></details>")
+    out.append("<p class='foot'>Made with lintel. The sample data is fictional.</p></main></body></html>")
     return "".join(out)
 
 

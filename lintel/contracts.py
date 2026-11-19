@@ -10,6 +10,9 @@ from .models import Case, Finding, Trace
 from .text import guess_language
 
 
+FIELD_NAMES = {"what_happened": "what happened", "why": "why", "state_of_work": "what's safe", "next_step": "what to do next"}
+
+
 def load_contracts(path: str | Path) -> dict[str, Any]:
     return yaml.safe_load(Path(path).read_text(encoding="utf-8"))
 
@@ -45,7 +48,7 @@ def check_contracts(case: Case, trace: Trace, cfg: dict[str, Any]) -> list[Findi
             out.append(Finding(
                 "contract", "recovery.envelope", env["severity"], not missing,
                 env["why"] if missing else "All four recovery fields present.",
-                evidence=("missing: " + ", ".join(missing)) if missing else "", turn=j,
+                evidence=("Missing: " + ", ".join(FIELD_NAMES.get(m, m) for m in missing)) if missing else "", turn=j,
                 suggestion="Say what happened, why (or that you don't know), what's safe, and what to do next."
                 if missing else ""))
             break  # one envelope check per trace: the first failure is the moment of truth

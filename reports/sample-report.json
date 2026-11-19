@@ -125,8 +125,8 @@
   "gate": {
     "ship": false,
     "reasons": [
-      "1 blocker finding(s); limit is 0",
-      "high-risk regression on c07 (Export sheets to PDF (partial failure))"
+      "1 blocker finding. The limit is 0.",
+      "A high-risk case got worse: c07, Export sheets to PDF (partial failure)."
     ]
   },
   "diff": [
@@ -392,7 +392,7 @@
           "check": "grounded.claims_supported",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Every figure in the reply appears in a source.",
+          "message": "Every figure in the reply appears in a source.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -402,7 +402,7 @@
           "check": "useful.answers_the_question",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Reply covers the request (60% term overlap).",
+          "message": "Reply covers the request (60% term overlap).",
           "evidence": "lobby, section, view",
           "turn": null,
           "suggestion": ""
@@ -412,7 +412,7 @@
           "check": "useful.actionable_next_step",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Ends with a clear action or choice.",
+          "message": "Ends with a clear action or choice.",
           "evidence": "From the help topic \"Create a section view\": select View > Section, then select two points across the lobby in a plan vi",
           "turn": null,
           "suggestion": ""
@@ -422,7 +422,7 @@
           "check": "voice.plain_language",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Flesch-Kincaid proxy for scannability.",
+          "message": "Flesch-Kincaid proxy for scannability.",
           "evidence": "grade 5.6",
           "turn": null,
           "suggestion": ""
@@ -432,7 +432,7 @@
           "check": "voice.respectful_expert",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Peer-to-peer tone.",
+          "message": "Peer-to-peer tone.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -479,7 +479,7 @@
           "check": "grounded.claims_supported",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Every figure in the reply appears in a source.",
+          "message": "Every figure in the reply appears in a source.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -489,7 +489,7 @@
           "check": "useful.answers_the_question",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Reply covers the request (75% term overlap).",
+          "message": "Reply covers the request (75% term overlap).",
           "evidence": "famili, model, unus",
           "turn": null,
           "suggestion": ""
@@ -499,7 +499,7 @@
           "check": "useful.actionable_next_step",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Confirms the action is complete; nothing else needed.",
+          "message": "Confirms the action is complete; nothing else needed.",
           "evidence": "I removed 43 unused families from the model.",
           "turn": null,
           "suggestion": ""
@@ -509,7 +509,7 @@
           "check": "voice.plain_language",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Flesch-Kincaid proxy for scannability.",
+          "message": "Flesch-Kincaid proxy for scannability.",
           "evidence": "grade 6.1",
           "turn": null,
           "suggestion": ""
@@ -519,7 +519,7 @@
           "check": "voice.respectful_expert",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Peer-to-peer tone.",
+          "message": "Peer-to-peer tone.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -556,7 +556,7 @@
           "check": "grounded.claims_supported",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Every figure in the reply appears in a source.",
+          "message": "Every figure in the reply appears in a source.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -566,7 +566,7 @@
           "check": "useful.answers_the_question",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Asks the question needed to answer.",
+          "message": "Asks the question needed to answer.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -576,7 +576,7 @@
           "check": "useful.actionable_next_step",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Ends with a clear action or choice.",
+          "message": "Ends with a clear action or choice.",
           "evidence": "Which doors should I rename, and to what pattern?",
           "turn": null,
           "suggestion": ""
@@ -586,7 +586,7 @@
           "check": "voice.plain_language",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Flesch-Kincaid proxy for scannability.",
+          "message": "Flesch-Kincaid proxy for scannability.",
           "evidence": "grade 6.7",
           "turn": null,
           "suggestion": ""
@@ -596,7 +596,7 @@
           "check": "voice.respectful_expert",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Peer-to-peer tone.",
+          "message": "Peer-to-peer tone.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -643,7 +643,7 @@
           "check": "grounded.claims_supported",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Every figure in the reply appears in a source.",
+          "message": "Every figure in the reply appears in a source.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -653,7 +653,7 @@
           "check": "useful.answers_the_question",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Reply covers the request (80% term overlap).",
+          "message": "Reply covers the request (80% term overlap).",
           "evidence": "model, project, shar, upload",
           "turn": null,
           "suggestion": ""
@@ -663,7 +663,7 @@
           "check": "useful.actionable_next_step",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Ends with a clear action or choice.",
+          "message": "Ends with a clear action or choice.",
           "evidence": "Want me to check what's taking up the most space?",
           "turn": null,
           "suggestion": ""
@@ -673,7 +673,7 @@
           "check": "voice.plain_language",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Flesch-Kincaid proxy for scannability.",
+          "message": "Flesch-Kincaid proxy for scannability.",
           "evidence": "grade 4.8",
           "turn": null,
           "suggestion": ""
@@ -683,7 +683,7 @@
           "check": "voice.respectful_expert",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Peer-to-peer tone.",
+          "message": "Peer-to-peer tone.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -720,7 +720,7 @@
           "check": "grounded.claims_supported",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Every figure in the reply appears in a source.",
+          "message": "Every figure in the reply appears in a source.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -730,7 +730,7 @@
           "check": "useful.answers_the_question",
           "severity": "minor",
           "passed": false,
-          "message": "[partial] Reply only partly tracks the request (29% overlap).",
+          "message": "Partly there. Reply only partly tracks the request (29% overlap).",
           "evidence": "clash, level",
           "turn": null,
           "suggestion": ""
@@ -740,7 +740,7 @@
           "check": "useful.actionable_next_step",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Confirms the action is complete; nothing else needed.",
+          "message": "Confirms the action is complete; nothing else needed.",
           "evidence": "I found 14 clashes on Level 3: 9 ducts through beams and 5 pipes through columns.",
           "turn": null,
           "suggestion": ""
@@ -750,7 +750,7 @@
           "check": "voice.plain_language",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Flesch-Kincaid proxy for scannability.",
+          "message": "Flesch-Kincaid proxy for scannability.",
           "evidence": "grade 2.3",
           "turn": null,
           "suggestion": ""
@@ -760,7 +760,7 @@
           "check": "voice.respectful_expert",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Peer-to-peer tone.",
+          "message": "Peer-to-peer tone.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -787,7 +787,7 @@
           "check": "grounded.claims_supported",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Every figure in the reply appears in a source.",
+          "message": "Every figure in the reply appears in a source.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -797,7 +797,7 @@
           "check": "grounded.uncertainty_signaled",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Names the gap and who decides.",
+          "message": "Names the gap and who decides.",
           "evidence": "code official",
           "turn": null,
           "suggestion": ""
@@ -807,7 +807,7 @@
           "check": "useful.answers_the_question",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Reply covers the request (67% term overlap).",
+          "message": "Reply covers the request (67% term overlap).",
           "evidence": "corridor, level, rating, wall",
           "turn": null,
           "suggestion": ""
@@ -817,7 +817,7 @@
           "check": "useful.actionable_next_step",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Ends with a clear action or choice.",
+          "message": "Ends with a clear action or choice.",
           "evidence": "Check the required rating with your code consultant or the local code official, and I can then find walls on Level 2 tha",
           "turn": null,
           "suggestion": ""
@@ -827,7 +827,7 @@
           "check": "voice.plain_language",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Flesch-Kincaid proxy for scannability.",
+          "message": "Flesch-Kincaid proxy for scannability.",
           "evidence": "grade 8.5",
           "turn": null,
           "suggestion": ""
@@ -837,7 +837,7 @@
           "check": "voice.respectful_expert",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Peer-to-peer tone.",
+          "message": "Peer-to-peer tone.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -865,7 +865,7 @@
           "severity": "major",
           "passed": false,
           "message": "After a failure, users need the same four answers every time, in the same order of priority.",
-          "evidence": "missing: what_happened, why, state_of_work, next_step",
+          "evidence": "Missing: what happened, why, what's safe, what to do next",
           "turn": 3,
           "suggestion": "Say what happened, why (or that you don't know), what's safe, and what to do next."
         },
@@ -904,7 +904,7 @@
           "check": "grounded.claims_supported",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Every figure in the reply appears in a source.",
+          "message": "Every figure in the reply appears in a source.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -914,7 +914,7 @@
           "check": "useful.answers_the_question",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Reply covers the request (100% term overlap).",
+          "message": "Reply covers the request (100% term overlap).",
           "evidence": "export, pdf, sheet, through",
           "turn": null,
           "suggestion": ""
@@ -924,7 +924,7 @@
           "check": "useful.actionable_next_step",
           "severity": "major",
           "passed": false,
-          "message": "[fail] No next action for the user.",
+          "message": "No next action for the user.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -934,7 +934,7 @@
           "check": "voice.plain_language",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Flesch-Kincaid proxy for scannability.",
+          "message": "Flesch-Kincaid proxy for scannability.",
           "evidence": "grade 1.5",
           "turn": null,
           "suggestion": ""
@@ -944,7 +944,7 @@
           "check": "voice.respectful_expert",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Peer-to-peer tone.",
+          "message": "Peer-to-peer tone.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -991,7 +991,7 @@
           "check": "grounded.claims_supported",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Every figure in the reply appears in a source.",
+          "message": "Every figure in the reply appears in a source.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -1001,7 +1001,7 @@
           "check": "useful.answers_the_question",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Reply covers the request (50% term overlap).",
+          "message": "Reply covers the request (50% term overlap).",
           "evidence": "rfi",
           "turn": null,
           "suggestion": ""
@@ -1011,7 +1011,7 @@
           "check": "useful.actionable_next_step",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Ends with a clear action or choice.",
+          "message": "Ends with a clear action or choice.",
           "evidence": "Want me to draft a reply for the structural engineer?",
           "turn": null,
           "suggestion": ""
@@ -1021,7 +1021,7 @@
           "check": "voice.plain_language",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Flesch-Kincaid proxy for scannability.",
+          "message": "Flesch-Kincaid proxy for scannability.",
           "evidence": "grade 5.0",
           "turn": null,
           "suggestion": ""
@@ -1031,7 +1031,7 @@
           "check": "voice.respectful_expert",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Peer-to-peer tone.",
+          "message": "Peer-to-peer tone.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -1078,7 +1078,7 @@
           "check": "grounded.claims_supported",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Every figure in the reply appears in a source.",
+          "message": "Every figure in the reply appears in a source.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -1088,7 +1088,7 @@
           "check": "grounded.uncertainty_signaled",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Names the gap and who decides.",
+          "message": "Names the gap and who decides.",
           "evidence": "code official",
           "turn": null,
           "suggestion": ""
@@ -1098,7 +1098,7 @@
           "check": "useful.answers_the_question",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Asks the question needed to answer.",
+          "message": "Asks the question needed to answer.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -1108,7 +1108,7 @@
           "check": "useful.actionable_next_step",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Ends with a clear action or choice.",
+          "message": "Ends with a clear action or choice.",
           "evidence": "Which requirement should the stairs meet?",
           "turn": null,
           "suggestion": ""
@@ -1118,7 +1118,7 @@
           "check": "voice.plain_language",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Flesch-Kincaid proxy for scannability.",
+          "message": "Flesch-Kincaid proxy for scannability.",
           "evidence": "grade 7.0",
           "turn": null,
           "suggestion": ""
@@ -1128,7 +1128,7 @@
           "check": "voice.respectful_expert",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Peer-to-peer tone.",
+          "message": "Peer-to-peer tone.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -1175,7 +1175,7 @@
           "check": "grounded.claims_supported",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Every figure in the reply appears in a source.",
+          "message": "Every figure in the reply appears in a source.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -1185,7 +1185,7 @@
           "check": "useful.answers_the_question",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Reply covers the request (75% term overlap).",
+          "message": "Reply covers the request (75% term overlap).",
           "evidence": "cambio, proyecto, unidad",
           "turn": null,
           "suggestion": ""
@@ -1195,7 +1195,7 @@
           "check": "useful.actionable_next_step",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Ends with a clear action or choice.",
+          "message": "Ends with a clear action or choice.",
           "evidence": "Según el artículo de ayuda «Unidades del proyecto»: selecciona Administrar > Unidades del proyecto y, en Longitud, elige",
           "turn": null,
           "suggestion": ""
@@ -1205,7 +1205,7 @@
           "check": "voice.plain_language",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Sentence length check.",
+          "message": "Sentence length check.",
           "evidence": "11 words/sentence",
           "turn": null,
           "suggestion": ""
@@ -1215,7 +1215,7 @@
           "check": "voice.respectful_expert",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Peer-to-peer tone.",
+          "message": "Peer-to-peer tone.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -1252,7 +1252,7 @@
           "check": "grounded.claims_supported",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Every figure in the reply appears in a source.",
+          "message": "Every figure in the reply appears in a source.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -1262,7 +1262,7 @@
           "check": "useful.answers_the_question",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Reply covers the request (50% term overlap).",
+          "message": "Reply covers the request (50% term overlap).",
           "evidence": "roof",
           "turn": null,
           "suggestion": ""
@@ -1272,7 +1272,7 @@
           "check": "useful.actionable_next_step",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Confirms the action is complete; nothing else needed.",
+          "message": "Confirms the action is complete; nothing else needed.",
           "evidence": "I set the slope on Roof R1 back from 6:12 to 4:12.",
           "turn": null,
           "suggestion": ""
@@ -1282,7 +1282,7 @@
           "check": "voice.plain_language",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Flesch-Kincaid proxy for scannability.",
+          "message": "Flesch-Kincaid proxy for scannability.",
           "evidence": "grade 0.9",
           "turn": null,
           "suggestion": ""
@@ -1292,7 +1292,7 @@
           "check": "voice.respectful_expert",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Peer-to-peer tone.",
+          "message": "Peer-to-peer tone.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -1329,7 +1329,7 @@
           "check": "grounded.claims_supported",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Every figure in the reply appears in a source.",
+          "message": "Every figure in the reply appears in a source.",
           "evidence": "",
           "turn": null,
           "suggestion": ""
@@ -1339,7 +1339,7 @@
           "check": "useful.answers_the_question",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Reply covers the request (33% term overlap).",
+          "message": "Reply covers the request (33% term overlap).",
           "evidence": "render",
           "turn": null,
           "suggestion": ""
@@ -1349,7 +1349,7 @@
           "check": "useful.actionable_next_step",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Ends with a clear action or choice.",
+          "message": "Ends with a clear action or choice.",
           "evidence": "For draft renders, select Medium quality, lower the resolution, and turn off lights that aren't in the lobby.",
           "turn": null,
           "suggestion": ""
@@ -1359,7 +1359,7 @@
           "check": "voice.plain_language",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Flesch-Kincaid proxy for scannability.",
+          "message": "Flesch-Kincaid proxy for scannability.",
           "evidence": "grade 7.6",
           "turn": null,
           "suggestion": ""
@@ -1369,7 +1369,7 @@
           "check": "voice.respectful_expert",
           "severity": "info",
           "passed": true,
-          "message": "[pass] Peer-to-peer tone.",
+          "message": "Peer-to-peer tone.",
           "evidence": "",
           "turn": null,
           "suggestion": ""

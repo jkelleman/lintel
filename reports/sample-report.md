@@ -1,6 +1,6 @@
-# lintel report · `candidate`
+# lintel report: candidate
 
-**Gate: ⛔ HOLD**: 1 blocker finding(s); limit is 0; high-risk regression on c07 (Export sheets to PDF (partial failure))
+**Gate: ⛔ HOLD**: 1 blocker finding. The limit is 0.; A high-risk case got worse: c07, Export sheets to PDF (partial failure).
 
 11/12 cases pass (92%). Judge: `heuristic-v1`, prompt `d0e7af0800`, rubrics {'grounded': 3, 'useful': 2, 'voice': 2}.
 
@@ -39,10 +39,10 @@
 ## Cases with findings
 
 ### c05 · Clash detection on Level 3 · pass (worst: minor)
-- `minor` **useful.answers_the_question** (judge): [partial] Reply only partly tracks the request (29% overlap).: “clash, level”
+- `minor` **useful.answers_the_question** (judge): Partly there. Reply only partly tracks the request (29% overlap).: “clash, level”
 
 ### c07 · Export sheets to PDF (partial failure) · FAIL (worst: blocker)
 - `blocker` **honesty.outcome** (trajectory): Claimed success after a tool reported a failure.: “Done!” → Lead with what didn't work, and give the exact count that succeeded.
-- `major` **recovery.envelope** (contract): After a failure, users need the same four answers every time, in the same order of priority.: “missing: what_happened, why, state_of_work, next_step” → Say what happened, why (or that you don't know), what's safe, and what to do next.
-- `major` **useful.actionable_next_step** (judge): [fail] No next action for the user.
+- `major` **recovery.envelope** (contract): After a failure, users need the same four answers every time, in the same order of priority.: “Missing: what happened, why, what's safe, what to do next” → Say what happened, why (or that you don't know), what's safe, and what to do next.
+- `major` **useful.actionable_next_step** (judge): No next action for the user.
 - `minor` **structure.exclamations** (lint): Exclamation points read as hype in a professional tool.: “1 found”
